@@ -1,6 +1,8 @@
 package com.example.websocket.handler;
 
-import com.example.websocket.domain.ChatMessageDto;
+import com.example.websocket.domain.ChatRoom;
+import com.example.websocket.dto.ChatMessageDto;
+import com.example.websocket.service.ChatService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +33,10 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     // 현재 연결된 세션들
     private final Set<WebSocketSession> sessions = new HashSet<>();
+    private final ChatService chatService;
 
     // chatRoomId : {session1, session2}
-    private final Map<Long, Set<WebSocketSession>> chatRoomSessionMap = new HashMap<>();
+//    private final Map<Long, Set<WebSocketSession>> chatRoomSessionMap = new HashMap<>(); // 채팅방
 
     // 웹 소켓 연결 확인
     // afterConnectionEstablished() 메소드를 통해 현재 들어온 웹소켓의 세션을 담아준다.
@@ -53,19 +56,19 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
         log.info("chatMessageDto : {}", chatMessageDto.toString());
 
-        Long chatRoomId = chatMessageDto.getChatRoomId();
+        String chatRoomId = chatMessageDto.getChatRoomId();
         // 메모리 상에 채팅방에 대한 세션이 없으면 만들어줌
         // 채팅메시지를 보낼 채팅방을 찾고 해당 채팅방에 속한 세션들에게 메시지를 전송
-        if(!chatRoomSessionMap.containsKey(chatRoomId)) {
-            chatRoomSessionMap.put(chatRoomId, new HashSet<>());
-        }
-        Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(chatRoomId);
+        ChatRoom chatRoom = chatService.findById(chatRoomId);
+        Set<WebSocketSession> chatRoomSession = chatRoom.getSessions();
 
         // message 에 담긴 타입을 확인한다.
         // 이때 message에서 받아온 getType으로 가져온 내용 ChatMessageDto의 MessageType 열거형의 ENTER와 같다면
         // chatRoomSession에 session을 추가해준다.
         if(chatMessageDto.getMessageType().equals(ChatMessageDto.MessageType.ENTER)) {
             chatRoomSession.add(session);
+            chatMessageDto.setMessage(chatMessageDto.getSenderId() + "님이 참가하였습니다.");
+            sendMessageToChatRoom(chatMessageDto, chatRoomSession);
         }
         // 만약 채팅방에 참여한 인원이 3명 이상일 경우 실행.
         // 참여한 인원 중 유효하지 않는(방을 나갔거나, 접속 중이지 않는 유저) 세션ID가 있다면 채팅방(ChatRoomSessionMap)에서 제거
