@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        section {
+            width: 380px;
+            height: 600px;
+            background-color: bisque;
+        }
+        .container {
+            padding: 100px 60px;
+        }
+        .container .img-box {
+            text-align: center;
+        }
+
+        .login-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        .login-form input{
+            width: 200px;
+            height: 30px;
+        }
+        .login-form .id, .passwd {
+            border: 1px solid bisque;
+        }
+        .login-form #submit {
+            width: 204px;
+            border: none;
+            margin-top: 5px;
+        }
+
+        .help-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            gap: 5px;
+        }
+        .help-box button {
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="img-box">
+                <i class="fa-regular fa-comments fa-5x"></i>
+            </div>
+            <form class="login-form" action="" method="post">
+                <input class="id" type="text" placeholder="아이디">
+                <input class="passwd" type="password" placeholder="비밀번호">
+                <input id="submit" type="submit" value="로그인">
+            </form>
+            <div class="help-box">
+                <button class="register-btn">아직 계정이 없으신가요?</button>
+                <div class="find-box">
+                    <button class="find-id-btn">계정 찾기</button>
+                    <button class="find-passwd-btn">비밀번호 찾기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

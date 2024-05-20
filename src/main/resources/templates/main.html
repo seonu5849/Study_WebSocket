@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
+    <title>main</title>
+    <style>
+        section {
+            width: 380px;
+            height: 600px;
+        }
+        /* nav 관련 */
+        nav {
+            width: 60px;
+            height: 600px;
+            float: left;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            background-color: bisque;
+        }
+        nav button {
+            border: none;
+            background-color: transparent;
+        }
+        nav .user-btn {
+            margin-top: 65px;
+            margin-bottom: 20px;
+            
+        }
+
+        /* 상단 메뉴 관련 */
+        .menu-box {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            
+        }
+        .menu-box span {
+            margin: 15px;
+            font-size: 23px;
+            font-weight: bold;
+        }
+        .menu-box .btn-box {
+            margin-left: auto;
+            display: flex;
+            gap: 10px; /* flex를 사용해야 사용할 수 있다. */
+        }
+        .menu-box .btn-box .comment-plus-btn {
+            margin-right: 10px;
+        }
+        .menu-box .btn-box .comment-plus-btn, .search-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 채팅 관련 */
+        .chat-room {
+            height: 550px;
+            overflow: auto;
+        }
+        .chat-room .user {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px;
+        }
+        .chat-room .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-room img {
+            width: 50px;
+            height: 50px;
+            border-radius: 35%;
+        }
+        .chat-room .user-top {
+            width: 200px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .chat-room .nickname {
+            font-weight: bold;
+        }
+        .chat-room .comment {
+            font-size: 12px;
+            margin-top: 5px; /* 마지막 내용과 닉네임/날짜 사이의 간격 */
+            width: 200px; /* 고정된 너비 설정 */
+            max-height: 3.6em; /* 영역의 최대 높이를 설정 */
+            overflow: hidden; /* 넘치는 텍스트를 숨김 */
+            text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
+            display: -webkit-box; /* webkit 기반으로 처리 */
+            -webkit-line-clamp: 2; /* 최대 2줄까지만 보여주도록 설정 */
+            -webkit-box-orient: vertical; /* FlexBox의 컨테이너 방향을 수직으로 변경 */
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <nav>
+            <button class="user-btn">
+                <i class="fa-solid fa-user fa-2x"></i>
+            </button>
+            <button class="comment-btn">
+                <i class="fa-solid fa-comment fa-2x"></i>
+            </button>
+        </nav>
+        <div class="container">
+            <form class="menu-box" action="" method="get">
+                <span>채팅목록</span>
+                <!-- <input class="search-txt" type="text" placeholder="닉네임을 입력하세요."> -->
+                <div class="btn-box">
+                    <button class="search-btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button class="comment-plus-btn">
+                        <i class="fa-solid fa-comment-medical"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="chat-room">
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+                <div class="user">
+                    <img src="KakaoTalk_Photo_2024-05-15-16-08-26.jpeg" alt="">
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="nickname">닉네임</span>
+                            <span class="date">날짜</span>
+                        </div>
+                        <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+</body>
+</html>
