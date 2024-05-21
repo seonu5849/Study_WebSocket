@@ -1,0 +1,55 @@
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 8px;
+    width: 380px;
+    height: 600px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal .modal-popup {
+    /* 팝업 */
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 20px;
+}
+
+.modal-top, .modal-main {
+    margin-left: 3px;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-top .close-btn {
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+}
+.modal-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-main .modal-input {
+    width: 250px;
+    height: 20px;
+}
+.modal-main .search-frend-btn {
+    width: 30px;
+    height: 26px;
+}
+.modal-main .modal-view {
+    width: 290px;
+    height: 200px;
+}
