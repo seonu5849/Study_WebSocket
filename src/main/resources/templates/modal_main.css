@@ -1,23 +1,26 @@
 .modal-main > .search-area {
+    margin: auto;
     margin-bottom: 8px;
 }
 .modal-main .modal-input {
     width: 280px;
 }
 .modal-view {
+    margin: auto;
+    margin-top: 10px;
     overflow: auto;
 }
-.modal-view .user{
+.modal .user{
     display: flex;
     gap: 10px;
     margin-bottom: 8px;
 }
-.modal-view img {
+.modal img {
     width: 50px;
     height: 50px;
     border-radius: 35%;
 }
-.modal-view .user-info {
+.modal .user-info {
     width: 230px;
     display: flex;
     justify-content: space-between;
@@ -25,4 +28,55 @@
 }
 .modal-view .checkbox {
     margin-right: 10px;
+}
+.modal .modal-footer {
+    float: right;
+    margin: 20px 8px;
+}
+.modal-main .btn-box {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+.btn-box button {
+    width: 50px;
+    height: 30px;
+    border: none;
+    background: none;
+}
+.modal-main .modal-next-btn:hover, 
+.modal-submit-btn:hover, 
+.modal-back-btn:hover {
+    color: blue;
+}
+
+.modal .frend-list {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    overflow-x: auto;
+}
+.frend-list > .user {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 5px;
+}
+.frend-list .user-info {
+    width: 60px;
+    font-size: 14px;
+    text-align: center;
+}
+.modal .input-chatroom {
+    display: none;
+}
+.modal-view .title {
+    width: 280px;
+    height: 30px;
+    margin: auto;
+}
+.modal-footer .modal-submit-btn {
+    display: none;
 }
