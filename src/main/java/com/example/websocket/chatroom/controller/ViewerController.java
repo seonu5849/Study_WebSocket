@@ -1,4 +1,4 @@
-package com.example.websocket.controller;
+package com.example.websocket.chatroom.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

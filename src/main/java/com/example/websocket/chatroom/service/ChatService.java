@@ -1,6 +1,6 @@
-package com.example.websocket.service;
+package com.example.websocket.chatroom.service;
 
-import com.example.websocket.domain.ChatRoom;
+import com.example.websocket.chatroom.domain.ChatRoom;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

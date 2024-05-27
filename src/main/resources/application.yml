@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: websocket
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/websocketDB
+    username: root
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      generate-ddl: true # Hibernate? DDL? ???? ??
+      properties:
+        hibernate:
+          format_sql: true # SQL ??? ????? ??
+          default_batch_fetch_size: 50 # ?? ?? ?? ?? ??
+          show_sql: true
+      open-in-view: false # Open Session in View ?? ???? (??? ? ????? ??? ??, ?? ? ??? ??)

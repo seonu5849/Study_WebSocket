@@ -1,8 +1,8 @@
-package com.example.websocket.handler;
+package com.example.websocket.chatroom.handler;
 
-import com.example.websocket.domain.ChatRoom;
-import com.example.websocket.dto.ChatMessageDto;
-import com.example.websocket.service.ChatService;
+import com.example.websocket.chatroom.domain.ChatRoom;
+import com.example.websocket.chatroom.dto.ChatMessageDto;
+import com.example.websocket.chatroom.service.ChatService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**

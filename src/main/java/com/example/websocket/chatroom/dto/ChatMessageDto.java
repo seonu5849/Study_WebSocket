@@ -1,4 +1,4 @@
-package com.example.websocket.dto;
+package com.example.websocket.chatroom.dto;
 
 import lombok.*;
 

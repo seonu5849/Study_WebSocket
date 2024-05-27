@@ -1,7 +1,7 @@
-package com.example.websocket.controller;
+package com.example.websocket.chatroom.controller;
 
-import com.example.websocket.domain.ChatRoom;
-import com.example.websocket.service.ChatService;
+import com.example.websocket.chatroom.domain.ChatRoom;
+import com.example.websocket.chatroom.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

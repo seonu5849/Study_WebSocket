@@ -1,7 +1,5 @@
-package com.example.websocket.domain;
+package com.example.websocket.chatroom.domain;
 
-import com.example.websocket.dto.ChatMessageDto;
-import com.example.websocket.service.ChatService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
