@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
     <title>main</title>
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="chatroom.css">
-    <link rel="stylesheet" href="modal.css">
-    <link rel="stylesheet" href="modal_main.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" href="@{/css/chatroom.css}">
+    <link rel="stylesheet" href="@{/css/modal.css}">
+    <link rel="stylesheet" href="@{/css/modal_main.css}">
     <style>
         /* nav 관련 */
         nav {
@@ -80,7 +80,7 @@
                 <span>채팅목록</span>
                 <!-- <input class="search-txt" type="text" placeholder="닉네임을 입력하세요."> -->
                 <div class="btn-box">
-                    <button type="button" class="search-btn" type="submit">
+                    <button type="button" class="search-btn">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                     <button type="button" class="plus-btn modal-btn">
@@ -155,8 +155,8 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="test.js"></script>
-    <script type="text/javascript" src="modal.js"></script>
-    <script type="text/javascript" src="modal_main.js"></script>
+    <script type="text/javascript" src="../static/js/test.js"></script>
+    <script type="text/javascript" src="../static/js/modal.js"></script>
+    <script type="text/javascript" src="../static/js/modal_main.js"></script>
 </body>
 </html>

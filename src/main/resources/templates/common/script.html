@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="common_header(title,links)">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title th:replace="${title}">Document</title>
+
+    <!-- 공통 js  -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
+
+    <!--  공통 js  -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <th:block th:replace="${links}"/>
+</head>
+<body>
+
+</body>
+</html>

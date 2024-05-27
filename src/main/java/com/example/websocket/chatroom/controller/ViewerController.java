@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class ViewerController {
 
-    @GetMapping("/login")
-    public String loginView() {
-        return "login";
-    }
-
     @GetMapping("/main")
     public String mainView() {
         return "main";

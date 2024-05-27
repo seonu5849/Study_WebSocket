@@ -1,0 +1,40 @@
+.container .img-box {
+    text-align: center;
+}
+.container input {
+    width: 150px;
+    height: 20px;
+    border: none;
+}
+.container table {
+    margin: 30px 0px;
+}
+.container td:nth-child(1) {
+    width: 80px;
+    font-size: 14px;
+}
+.container td:nth-child(3) {
+    width: 60px;
+}
+.container button {
+    border: none;
+    background: none;
+    height: 20px;
+    background-color: rgb(235, 190, 135);
+    border-radius: 15px;
+    font-weight: bold;
+}
+.container #duplicate-btn {
+    font-size: 12px;
+    margin-left: 5px;
+}
+.container .decide-box {
+    width: 307px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.decide-box button {
+    width: 80px;
+    height: 30px;
+}
