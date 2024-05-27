@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @Builder
@@ -23,5 +24,20 @@ public class ChatId implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CHATROOM_ID")
     private Chatroom2 chatroom;
+
+    // hashCode and equals 메서드 구현
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChatId that = (ChatId) o;
+        return Objects.equals(chatId, that.chatId) &&
+                Objects.equals(chatroom, that.chatroom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(chatId, chatroom);
+    }
 
 }
