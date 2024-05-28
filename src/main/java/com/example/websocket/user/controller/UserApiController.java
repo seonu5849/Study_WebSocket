@@ -1,6 +1,7 @@
 package com.example.websocket.user.controller;
 
 import com.example.websocket.config.response.BaseResponse;
+import com.example.websocket.user.dto.request.UserLoginDto;
 import com.example.websocket.user.dto.request.UserRegisterDto;
 import com.example.websocket.user.service.UserResisterService;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,11 @@ public class UserApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(baseResponse);
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<BaseResponse> login(@RequestBody UserLoginDto loginDto) {
+//        log.debug("userLoginDto: {}", loginDto);
+//        return null;
+//    }
 
 }

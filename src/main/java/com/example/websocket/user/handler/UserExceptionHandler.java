@@ -1,7 +1,8 @@
-package com.example.websocket.user.exception;
+package com.example.websocket.user.handler;
 
 import com.example.websocket.config.exception.ErrorResponse;
 import com.example.websocket.user.controller.UserApiController;
+import com.example.websocket.user.exception.UserException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

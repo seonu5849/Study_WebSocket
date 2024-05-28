@@ -1,0 +1,49 @@
+.container .img-box {
+    text-align: center;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+.login-form input{
+    width: 200px;
+    height: 30px;
+}
+.login-form .email, .password {
+    border: 1px solid bisque;
+}
+.login-form #submit {
+    width: 204px;
+    border: none;
+    margin-top: 5px;
+}
+
+.help-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+    gap: 5px;
+}
+.help-box a {
+    text-decoration: none;
+    border: none;
+    background: none;
+}
+.help-box a:link, a:visited{
+    color: black;
+}
+
+.valid {
+    margin-bottom: 10px;
+    margin-top: -25px;
+}
+.valid a {
+    color: red;
+    font-size: 14px;
+}

@@ -22,4 +22,8 @@ public class UserRegisterDto {
                 .build();
     }
 
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
 }

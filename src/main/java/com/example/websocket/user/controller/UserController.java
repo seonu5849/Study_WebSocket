@@ -5,6 +5,7 @@ import com.example.websocket.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController { // 화면을 담당
@@ -16,7 +17,11 @@ public class UserController { // 화면을 담당
     }
 
     @GetMapping("/login")
-    public String loginView(Model model) {
+    public String loginView(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception,
+                            Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "login";
     }
 

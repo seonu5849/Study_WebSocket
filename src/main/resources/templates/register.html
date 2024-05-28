@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{common/script :: common_header(~{::title},~{::link})}">
+<head th:replace="~{common/header :: common_header(~{::title},~{::link})}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/register.css}">
@@ -37,7 +37,7 @@
                         <label for="password">비밀번호</label>
                     </td>
                     <td>
-                        <input type="text" th:field="*{password}" id="password">
+                        <input type="password" th:field="*{password}" id="password">
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +50,7 @@
                 </tr>
             </table>
             <div class="decide-box">
-                <button id="cancle">취소</button>
+                <button id="cancel">취소</button>
                 <button id="submit">회원가입</button>
             </div>
         </div>
