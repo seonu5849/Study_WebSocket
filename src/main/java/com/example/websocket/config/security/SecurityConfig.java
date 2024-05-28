@@ -44,10 +44,11 @@ public class SecurityConfig {
             .cors(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authorization -> authorization
                     .requestMatchers(requestMatchers).permitAll()
-                    .anyRequest().authenticated())
+//                    .anyRequest().authenticated() // 테스트를 위해 주석
+                    .anyRequest().permitAll())
             .formLogin(customLogin -> customLogin
                     .loginPage("/login")
-                    .defaultSuccessUrl("/main", true)
+                    .defaultSuccessUrl("/chatroom", true)
                     .failureHandler(customFailureHandler)
                     .usernameParameter("email")
                     .passwordParameter("password"));

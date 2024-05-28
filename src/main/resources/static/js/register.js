@@ -11,7 +11,7 @@ $(document).ready(function(){
 
         $.ajax({
            type: 'post',
-           url: '/register/duplicate',
+           url: '/api/v1/register/duplicate',
            dataType: 'json', // 받아올 데이터 타입
            data: {
                 'email': email
@@ -66,7 +66,7 @@ $(document).ready(function(){
         // 모든 검사를 마친 후 서버로 데이터 전송
         $.ajax({
             type: 'post',
-            url: '/register',
+            url: '/api/v1/register',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
