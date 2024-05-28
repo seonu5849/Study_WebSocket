@@ -1,80 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="~{common/header :: common_header(~{::title}, ~{::link})}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
-    <title>main</title>
-    <link rel="stylesheet" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="@{/css/chatroom.css}">
-    <link rel="stylesheet" href="@{/css/modal.css}">
-    <link rel="stylesheet" href="@{/css/modal_main.css}">
-    <style>
-        /* nav 관련 */
-        nav {
-            width: 60px;
-            height: 600px;
-            float: left;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            background-color: bisque;
-        }
-        nav button {
-            border: none;
-            background-color: transparent;
-        }
-        nav .user-btn {
-            margin-top: 65px;
-            margin-bottom: 20px;
-            
-        }
-
-        .main {
-            background-color: rgb(238, 201, 156);
-        }
-
-        /* 상단 메뉴 관련 */
-        .menu-box {
-            height: 50px;
-            display: flex;
-            align-items: center;
-            
-        }
-        .menu-box span {
-            margin: 15px;
-            font-size: 23px;
-            font-weight: bold;
-        }
-        .menu-box .btn-box {
-            margin-left: auto;
-            display: flex;
-            gap: 10px; /* flex를 사용해야 사용할 수 있다. */
-        }
-        .menu-box .btn-box .plus-btn {
-            margin-right: 10px;
-        }
-        .menu-box .btn-box .plus-btn, .search-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <title>채팅방</title>
+    <link rel="stylesheet" th:href="@{/css/common_chatroom.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/modal_main.css}">
 </head>
 <body>
     <section>
-        <nav>
-            <button class="user-btn">
-                <i class="fa-solid fa-user fa-2x"></i>
-            </button>
-            <button class="comment-btn">
-                <i class="fa-solid fa-comment fa-2x"></i>
-            </button>
-        </nav>
+        <div th:replace="~{/fragments/side_bar :: common_sidebar}"></div>
         <div class="main">
             <form class="menu-box" action="" method="get">
                 <span>채팅목록</span>
@@ -155,8 +91,9 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../static/js/test.js"></script>
-    <script type="text/javascript" src="../static/js/modal.js"></script>
-    <script type="text/javascript" src="../static/js/modal_main.js"></script>
+    <script type="text/javascript" th:src="@{/js/test.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal_main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/side_bar.js}"></script>
 </body>
 </html>

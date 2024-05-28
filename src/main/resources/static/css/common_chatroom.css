@@ -48,3 +48,57 @@
     -webkit-line-clamp: 2; /* 최대 2줄까지만 보여주도록 설정 */
     -webkit-box-orient: vertical; /* FlexBox의 컨테이너 방향을 수직으로 변경 */
 }
+
+/* nav 관련 */
+nav {
+    width: 60px;
+    height: 600px;
+    float: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+}
+nav button {
+    border: none;
+    background-color: transparent;
+}
+nav .user-btn {
+    margin-top: 65px;
+    margin-bottom: 20px;
+
+}
+
+.main {
+    background-color: rgb(238, 201, 156);
+}
+
+/* 상단 메뉴 관련 */
+.menu-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+}
+.menu-box span {
+    margin: 15px;
+    font-size: 23px;
+    font-weight: bold;
+}
+.menu-box .btn-box {
+    margin-left: auto;
+    display: flex;
+    gap: 10px; /* flex를 사용해야 사용할 수 있다. */
+}
+.menu-box .btn-box .plus-btn {
+    margin-right: 10px;
+}
+.menu-box .btn-box button {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+}

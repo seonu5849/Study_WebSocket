@@ -12,12 +12,12 @@
             <div class="img-box">
                 <i class="fa-regular fa-comments fa-5x"></i>
             </div>
-            <form class="login-form" th:action method="post">
+            <form class="login-form" action="/login" method="POST">
                 <div th:if="error" class="valid">
                     <a th:text="${exception}"></a>
                 </div>
-                <input class="email" id="email" name="email" type="text" placeholder="아이디">
-                <input class="password" id="password" name="password" type="password" placeholder="비밀번호">
+                <input type="text" class="email" id="email" name="email" placeholder="아이디">
+                <input type="password" class="password" id="password" name="password" placeholder="비밀번호">
                 <input id="submit" type="submit" value="로그인">
             </form>
             <div class="help-box">

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class ViewerController {
 
-    @GetMapping("/main")
+    @GetMapping("/chatroom")
     public String mainView() {
-        return "main";
+        return "chatroom";
     }
 
 }

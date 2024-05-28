@@ -1,6 +1,6 @@
 
 .modal {
-    /* display: none; */
+    display: none;
     position: absolute;
     top: 8px;
     width: 380px;

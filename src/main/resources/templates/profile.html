@@ -1,98 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="~{common/header :: common_header(~{::title}, ~{::link})}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
     <title>Profile</title>
-    <link rel="stylesheet" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="@{/css/chatroom.css}">
-    <link rel="stylesheet" href="@{/css/modal.css}">
-    <style>
-        /* nav 관련 */
-        nav {
-            width: 60px;
-            height: 600px;
-            float: left;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            background-color: bisque;
-        }
-        nav button {
-            border: none;
-            background-color: transparent;
-        }
-        nav .user-btn {
-            margin-top: 65px;
-            margin-bottom: 20px;
-            
-        }
-
-        .main {
-            background-color: rgb(238, 201, 156);
-        }
-
-        /* 상단 메뉴 관련 */
-        .menu-box {
-            height: 50px;
-            display: flex;
-            align-items: center;
-            
-        }
-        .menu-box span {
-            margin: 15px;
-            font-size: 23px;
-            font-weight: bold;
-        }
-        .menu-box .btn-box {
-            margin-left: auto;
-            display: flex;
-            gap: 10px; /* flex를 사용해야 사용할 수 있다. */
-        }
-        .menu-box .btn-box .plus-btn {
-            margin-right: 10px;
-        }
-        .menu-box .btn-box .plus-btn, .search-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .chat-room .user-info {
-            margin-top: 10px;
-        }
-        .chat-room .line {
-            width: 280px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        .chat-room .comment {
-            white-space: nowrap;
-            max-height: none;
-            display: block;
-            margin-top: -1px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/common_chatroom.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
 </head>
 <body>
     <section>
-        <nav>
-            <button class="user-btn">
-                <i class="fa-solid fa-user fa-2x"></i>
-            </button>
-            <button class="comment-btn">
-                <i class="fa-solid fa-comment fa-2x"></i>
-            </button>
-        </nav>
+        <div th:replace="~{/fragments/side_bar :: common_sidebar}"></div>
         <div class="main">
             <form class="menu-box" action="" method="get">
                 <span>회원</span>
                 <div class="btn-box">
-                    <button type="button" class="search-btn" type="submit">
+                    <button type="button" class="search-btn">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                     <button type="button" class="plus-btn modal-btn">
@@ -102,16 +25,15 @@
             </form>
             <div class="chat-room">
                 <div class="user-container">
-                    <div class="user">
-                        <img src="d3BPj1706541860.jpg" alt="">
+                    <div class="user" th:object="${myInfo}">
+                        <img th:src="@{d3BPj1706541860.jpg}" alt="">
                         <div class="user-info">
                             <div class="user-top">
                                 <div>
-                                    <span class="nickname">닉네임</span>
+                                    <span class="nickname" th:text="*{nickname}">닉네임</span>
                                 </div>
-                                <span class="date">날짜</span>
                             </div>
-                            <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                            <span class="comment" th:text="*{description}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>
@@ -143,10 +65,10 @@
             </div>
            <div class="modal-main">
                 <div class="search-area">
-                    <input class="modal-input" type="text">
-                    <button type="button" class="search-frend-btn">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
+                    <input type="text" class="modal-input" id="searchFriendInput">
+<!--                    <button type="button" class="search-friend-btn" id="searchFriendBtn">-->
+<!--                        <i class="fa-solid fa-arrow-right"></i>-->
+<!--                    </button>-->
                 </div>
                 <div class="modal-view">
                     <span>아이디를 검색하면 친구를 찾을 수 있습니다.</span>
@@ -154,7 +76,9 @@
            </div>
         </div>
     </div>
-    <script type="text/javascript" src="../static/js/test.js"></script>
-    <script type="text/javascript" src="../static/js/modal.js"></script>
+<!--    <script type="text/javascript" th:src="@{/js/test.js}"></script>-->
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+    <script type="text/javascript" th:src="@{/js/side_bar.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </body>
 </html>

@@ -20,10 +20,7 @@ import java.util.Objects;
 public class ChatId implements Serializable {
 
     private Long chatId;
-
-    @ManyToOne
-    @JoinColumn(name = "CHATROOM_ID")
-    private Chatroom2 chatroom;
+    private Long chatroomId;
 
     // hashCode and equals 메서드 구현
     @Override
@@ -32,12 +29,12 @@ public class ChatId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         ChatId that = (ChatId) o;
         return Objects.equals(chatId, that.chatId) &&
-                Objects.equals(chatroom, that.chatroom);
+                Objects.equals(chatroomId, that.chatroomId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chatId, chatroom);
+        return Objects.hash(chatId, chatroomId);
     }
 
 }

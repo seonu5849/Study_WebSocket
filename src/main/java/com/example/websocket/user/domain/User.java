@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 
+@ToString
 @Getter
 @Builder
 @AllArgsConstructor
@@ -16,9 +17,10 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "USER_ID")
+//    @Column(name = "USER_ID")
     private Long id;
 
+    @Column(unique = true)
     private String email;
     private String nickname;
     private String password;

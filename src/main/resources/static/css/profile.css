@@ -1,0 +1,13 @@
+.chat-room .user-info {
+    margin-top: 10px;
+}
+.chat-room .line {
+    width: 280px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.chat-room .comment {
+    white-space: nowrap;
+    max-height: none;
+    display: block;
+    margin-top: -1px;
+}
