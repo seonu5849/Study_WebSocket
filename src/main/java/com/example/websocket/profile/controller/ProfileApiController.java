@@ -26,13 +26,13 @@ public class ProfileApiController {
 
     @Operation(description = "친구 검색 시 출력 리스트")
     @GetMapping("/friend")
-    public ResponseEntity<List<FriendDto>> friendView(@AuthenticationPrincipal PrincipalDetail principalDetail,
+    public ResponseEntity<FriendDto> friendView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       Integer cursorId,
                                                       String email,
                                                       Model model) {
         log.debug("user: {}", principalDetail.getUser());
         log.debug("cursorId: {}, email: {}",cursorId, email);
-        List<FriendDto> searchFriendList = searchFriendService.searchFriendList(principalDetail.getUser().getId(), cursorId, email);
+        FriendDto searchFriendList = searchFriendService.searchFriendList(principalDetail.getUser().getId(), cursorId, email);
 
         log.info("friends: {}", searchFriendList);
         return ResponseEntity.ok()

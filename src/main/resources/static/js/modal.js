@@ -10,8 +10,8 @@ modalOpen.addEventListener('click', function(){
     modal.style.display = 'block';
 
     const modalMain = document.querySelector('.modal-main');
-    if(modalMain.querySelector('.choose-frend')) {
-        modalFrend.style.display = "block";
+    if(modalMain.querySelector('.choose-friend')) {
+        modalFriend.style.display = "block";
         modalChatroom.style.display = "none";
 
         checkboxes.forEach(checkbox => {

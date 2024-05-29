@@ -1,5 +1,5 @@
 const nextBtn = document.querySelector('.modal-next-btn');
-const modalFrend = document.querySelector('.choose-frend');
+const modalFriend = document.querySelector('.choose-friend');
 const modalChatroom = document.querySelector('.input-chatroom');
 const submitBtn = document.querySelector('.modal-submit-btn');
 const checkboxes = document.querySelectorAll('.checkbox');
@@ -7,10 +7,10 @@ const backBtn = document.querySelector('.modal-back-btn');
 
 nextBtn.addEventListener('click', function(){
     // localStorage에 데이터 저장
-    const chooseFrends = [];
+    const chooseFriends = [];
     checkboxes.forEach(checkbox => {
         if(checkbox.checked) {
-            const userContainer = checkbox.closest('.choose-frend .user');
+            const userContainer = checkbox.closest('.choose-friend .user');
             const nickname = userContainer.querySelector('.nickname').textContent;
             const imgSrc = userContainer.querySelector('img').getAttribute('src');
             const checkboxId = checkbox.id;
@@ -21,15 +21,15 @@ nextBtn.addEventListener('click', function(){
                 checkboxId, checkboxId
             };
 
-            chooseFrends.push(userObj);
+            chooseFriends.push(userObj);
         }
     });
 
     // 로컬스토리지에 저장
-    localStorage.setItem('chooseFrend', JSON.stringify(chooseFrends));
-    console.log(chooseFrends);
+    localStorage.setItem('chooseFriend', JSON.stringify(chooseFriends));
+    console.log(chooseFriends);
     
-    if(chooseFrends.length > 0) {
+    if(chooseFriends.length > 0) {
         inputChatRoomTitle();
     }else {
         alert('친구를 선택해주세요.');
@@ -38,27 +38,27 @@ nextBtn.addEventListener('click', function(){
 
 function inputChatRoomTitle() {
     // '다음' 버튼 클릭 시 보여줄 화면과 안보여줄 화면 세팅
-    modalFrend.style.display = "none";
+    modalFriend.style.display = "none";
     modalChatroom.style.display = "block";
 
-    const frendList = modalChatroom.querySelector('.frend-list');
-    frendList.innerHTML = ''; // frendList를 초기화
+    const friendList = modalChatroom.querySelector('.friend-list');
+    friendList.innerHTML = ''; // friendList를 초기화
 
-    JSON.parse(localStorage.getItem('chooseFrend')).forEach(frend => {
+    JSON.parse(localStorage.getItem('chooseFriend')).forEach(friend => {
         const userContainer = document.createElement('div');
         userContainer.className = 'user';
         
         userContainer.innerHTML = `
-            <img src="${frend.imgSrc}" alt="">
+            <img src="${friend.imgSrc}" alt="">
             <div class="user-info">
-                <span class="nickname">${frend.nickname}</span>
+                <span class="nickname">${friend.nickname}</span>
             </div>`;
 
-        frendList.appendChild(userContainer);
+        friendList.appendChild(userContainer);
     });
 }
 
 backBtn.addEventListener('click', function(){
     modalChatroom.style.display = "none";
-    modalFrend.style.display = "block";
+    modalFriend.style.display = "block";
 });

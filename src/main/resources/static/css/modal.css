@@ -1,6 +1,6 @@
 
 .modal {
-    display: none;
+    /* display: none; */
     position: absolute;
     top: 8px;
     width: 380px;
@@ -52,6 +52,7 @@
 .modal-main .modal-view {
     width: 290px;
     height: 150px;
+    overflow: auto;
 }
 .modal .nickname {
     overflow: hidden;

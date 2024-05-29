@@ -1,6 +1,7 @@
 package com.example.websocket.profile.service;
 
 import com.example.websocket.profile.dto.response.FriendDto;
+import com.example.websocket.profile.dto.response.UserInfo;
 import com.example.websocket.profile.repository.FriendQueryRepository;
 import com.example.websocket.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -17,21 +18,26 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class SearchFriendService {
-    private final static int PAGE_SIZE = 5;
+
     private final FriendQueryRepository friendQueryRepository;
 
     // 무한 스크롤 구현을 위한 Slice
     @Transactional(readOnly = true)
-    public List<FriendDto> searchFriendList(Long userId, Integer cursorId, String email) {
-        Pageable pageable = PageRequest.of(cursorId, PAGE_SIZE);
-        Slice<User> slice = friendQueryRepository.findFriendByEmail(userId, email, pageable);
-        log.info("users: {}", slice);
+    public FriendDto searchFriendList(Long userId, Integer cursorId, String email) {
+        Slice<User> slice = friendQueryRepository.findFriendByEmail(userId, email, cursorId);
+        log.info("users: {}", slice.getContent());
 
-        return slice.stream()
-                .map(user -> FriendDto.builder()
-                        .nickname(user.getNickname())
-                        .profileUrl(user.getProfileImg())
-                        .build()).toList();
+        return FriendDto.builder()
+                        .userInfo(slice.stream()
+                                .map(user -> UserInfo.builder()
+                                        .userId(user.getId())
+                                        .nickname(user.getNickname())
+                                        .profileUrl(user.getProfileImg())
+                                        .build())
+                                .toList())
+                .isLast(slice.isLast())
+                .build();
+
     }
 
 }

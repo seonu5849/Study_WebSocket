@@ -1,5 +1,5 @@
 const chatroom = document.querySelector('.chat-room');
-const chooseFrend = document.querySelector('.choose-frend .modal-view');
+const chooseFriend = document.querySelector('.choose-friend .modal-view');
 
 for(let i=0; i<10; i++) {
     // user-container 요소 생성
@@ -40,5 +40,5 @@ for(let i=0; i<10; i++) {
         </div>
     </div>`
 
-    chooseFrend.appendChild(userContainer);
+    chooseFriend.appendChild(userContainer);
 }

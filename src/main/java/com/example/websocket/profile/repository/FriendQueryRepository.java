@@ -7,6 +7,6 @@ import org.springframework.data.domain.Slice;
 
 public interface FriendQueryRepository {
 
-    Slice<User> findFriendByEmail(Long userId, String email, Pageable pageable);
+    Slice<User> findFriendByEmail(Long userId, String email, Integer cursorId);
 
 }
