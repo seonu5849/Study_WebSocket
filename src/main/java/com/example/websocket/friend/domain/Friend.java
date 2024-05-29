@@ -1,4 +1,4 @@
-package com.example.websocket.profile.domain;
+package com.example.websocket.friend.domain;
 
 import com.example.websocket.user.domain.User;
 import jakarta.persistence.*;

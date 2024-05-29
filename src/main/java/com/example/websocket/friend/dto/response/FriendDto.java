@@ -1,4 +1,4 @@
-package com.example.websocket.profile.dto.response;
+package com.example.websocket.friend.dto.response;
 
 import lombok.*;
 

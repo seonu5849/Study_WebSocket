@@ -1,10 +1,6 @@
-package com.example.websocket.profile.domain;
+package com.example.websocket.friend.domain;
 
-import com.example.websocket.user.domain.User;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.util.Objects;

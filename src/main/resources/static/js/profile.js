@@ -104,7 +104,24 @@ $(document).ready(function() {
         });
     }
 
+    // 동적 생성된 버튼 클릭 이벤트
     $(document).on('click', '.select-friend', function() {
-        console.log('클릭');
+        let user = $(this).closest('.user');
+        let userId = user.find('.user-id').val();
+
+        $.ajax({
+            type: 'post',
+            url: '/api/v1/friend',
+            dataType: 'json',
+            data: {
+                'friendId': userId
+            },
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(request, status, error) {
+                console.log(request);
+            }
+        });
     });
 });

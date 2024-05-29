@@ -1,18 +1,15 @@
-package com.example.websocket.profile.controller;
+package com.example.websocket.friend.controller;
 
 import com.example.websocket.config.security.domain.PrincipalDetail;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class ProfileController {
+public class FriendController {
 
     @GetMapping("/profile")
     public String profileView(@AuthenticationPrincipal PrincipalDetail principalDetail,

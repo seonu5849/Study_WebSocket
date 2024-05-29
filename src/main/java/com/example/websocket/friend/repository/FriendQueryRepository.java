@@ -1,8 +1,6 @@
-package com.example.websocket.profile.repository;
+package com.example.websocket.friend.repository;
 
-import com.example.websocket.profile.domain.Friend;
 import com.example.websocket.user.domain.User;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
 public interface FriendQueryRepository {

@@ -1,10 +1,7 @@
-package com.example.websocket.profile.repository;
+package com.example.websocket.friend.repository;
 
-import com.example.websocket.profile.domain.Friend;
-import com.example.websocket.profile.domain.QFriend;
 import com.example.websocket.user.domain.QUser;
 import com.example.websocket.user.domain.User;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
