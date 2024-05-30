@@ -106,7 +106,8 @@ $(document).ready(function() {
 
     // 동적 생성된 버튼 클릭 이벤트
     $(document).on('click', '.select-friend', function() {
-        let user = $(this).closest('.user');
+        let $this = $(this);
+        let user = $this.closest('.user');
         let userId = user.find('.user-id').val();
 
         $.ajax({
@@ -117,7 +118,12 @@ $(document).ready(function() {
                 'friendId': userId
             },
             success: function(result) {
-                console.log(result);
+                if(result) {
+                    let successAddText = $('<span></span>').text('친구완료');
+                    $this.replaceWith(successAddText);
+                }else {
+                    alert('친구추가를 실패했습니다. 다시 시도해주세요.');
+                }
             },
             error: function(request, status, error) {
                 console.log(request);
