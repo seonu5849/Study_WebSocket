@@ -2,9 +2,6 @@
     margin: auto;
     margin-bottom: 8px;
 }
-.modal-main .modal-input {
-    width: 280px;
-}
 .modal-view {
     margin: auto;
     margin-top: 10px;
@@ -50,21 +47,21 @@
     color: blue;
 }
 
-.modal .frend-list {
+.modal .friend-list {
     height: 100px;
     display: flex;
     align-items: center;
     flex-direction: row;
     overflow-x: auto;
 }
-.frend-list > .user {
+.friend-list > .user {
     width: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0px 5px;
 }
-.frend-list .user-info {
+.friend-list .user-info {
     width: 60px;
     font-size: 14px;
     text-align: center;
