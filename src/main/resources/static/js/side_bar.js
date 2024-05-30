@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('#userBtn').click(function() {
         location.href = "/profile";
     });

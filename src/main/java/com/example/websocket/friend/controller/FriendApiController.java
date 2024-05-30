@@ -3,6 +3,7 @@ package com.example.websocket.friend.controller;
 import com.example.websocket.config.security.domain.PrincipalDetail;
 import com.example.websocket.friend.dto.response.FriendDto;
 import com.example.websocket.friend.service.AddFriendService;
+import com.example.websocket.friend.service.FriendListService;
 import com.example.websocket.friend.service.SearchFriendService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class FriendApiController {
 
     private final SearchFriendService searchFriendService;
+    private final FriendListService friendListService;
     private final AddFriendService addFriendService;
+
+    @GetMapping("/friends/list")
+    public ResponseEntity<FriendDto> friendListView(@AuthenticationPrincipal PrincipalDetail principalDetail,
+                                                    Integer cursorId) {
+        log.debug("friendListView({}, {}) invoked.", principalDetail.getUser().getId(), cursorId);
+        FriendDto friendDto = friendListService.profileFriendList(principalDetail.getUser().getId(), cursorId);
+
+        return ResponseEntity.ok()
+                .body(friendDto);
+    }
 
     @Operation(description = "친구 검색 시 출력 리스트")
     @GetMapping("/friends/search")
-    public ResponseEntity<FriendDto> friendView(@AuthenticationPrincipal PrincipalDetail principalDetail,
+    public ResponseEntity<FriendDto> friendSearchView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       Integer cursorId,
                                                       String email,
                                                       Model model) {
+        log.debug("friendSearchView({}, {}, {}) invoked.", principalDetail.getUser().getId(), cursorId, email);
         FriendDto searchFriendList =
                 searchFriendService.searchFriendList(principalDetail.getUser().getId(), cursorId, email);
 
@@ -38,7 +51,8 @@ public class FriendApiController {
                 .body(searchFriendList);
     }
 
-    @PostMapping("/friend")
+    @Operation(description = "친구 추가 API")
+    @PostMapping("/friends")
     public ResponseEntity<Boolean> addFriend(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                             Long friendId) {
         log.debug("userId: {}, friendId: {}", principalDetail.getUser().getId(), friendId);

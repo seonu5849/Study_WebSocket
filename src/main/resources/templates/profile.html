@@ -23,7 +23,7 @@
                     </button>
                 </div>
             </form>
-            <div class="chat-room">
+            <div class="chat-room" id="profileScroll">
                 <div class="user-container">
                     <div class="user" th:object="${myInfo}">
                         <img th:src="@{d3BPj1706541860.jpg}" alt="">
@@ -38,17 +38,19 @@
                     </div>
                 </div>
                 <hr class="line">
-                <div class="user-container">
-                    <div class="user">
-                        <img src="d3BPj1706541860.jpg" alt="">
-                        <div class="user-info">
-                            <div class="user-top">
-                                <div>
-                                    <span class="nickname">닉네임</span>
+                <div class="friend-list">
+                    <div th:each="friend : ${friendList.userInfo}" class="user-container">
+                        <div class="user">
+                            <input type="hidden" class="friend-id" value="${friend.userId}"/>
+                            <img th:src="${friend.profileUrl}" alt="">
+                            <div class="user-info">
+                                <div class="user-top">
+                                    <div>
+                                        <span class="nickname" th:text="${friend.nickname}">닉네임</span>
+                                    </div>
                                 </div>
-                                <span class="date">날짜</span>
+                                <span class="comment" th:text="${friend.description}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                             </div>
-                            <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>

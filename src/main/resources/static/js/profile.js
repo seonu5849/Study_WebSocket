@@ -4,9 +4,10 @@ $(document).ready(function() {
     let userInput; // 유저가 입력한 input 데이터를 담을 변수
     let lastScroll = 0; // 현재 스크롤 위치 저장
     let friendList = []; // 서보로부터 받은 유저의 정보를 담는 배열 (계속해서 축적함.)
-    let isLast; // 다음 유저가 있는지를 boolean 타입으로 받음.
+    let isModalLast = false; // 모달창에서 다음 유저가 있는지를 boolean 타입으로 받음.
+    let isFriendLast = false; // 친구목록에서 다음 유저가 있는지를 boolean 타입으로 받음.
 
-    $('#searchFriendInput').on('input', function() {
+    $('#searchFriendInput').on('input change', function() {
         let $this = $(this);
 
         clearTimeout(timeoutId); // 이전 타이머 제거
@@ -23,7 +24,7 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(result) {
                     let userInfo = result.userInfo;
-                    isLast = result.last;
+                    isModalLast = result.last;
 
                     friendList = userInfo;
                     $view.empty();
@@ -41,7 +42,7 @@ $(document).ready(function() {
         }, 300); // 300ms 후에 요청을 보내도록 설정
     });
 
-    // 무한 스크롤
+    // 모달창 무한 스크롤
     $view.scroll(function(e) {
         // 현재 높이 저장
         let currentScroll = $(this).scrollTop();
@@ -60,14 +61,14 @@ $(document).ready(function() {
 
                 let cursorId = friendList.length;
 
-                if(!isLast) { // 마지막일 경우 서버와 통신하지 않는다.
+                if(!isModalLast) { // 마지막일 경우 서버와 통신하지 않는다.
                     $.ajax({
                         type: 'get',
-                        url: `/api/v1/friend?cursorId=${cursorId}&email=${userInput}`,
+                        url: `/api/v1/friends/search?cursorId=${cursorId}&email=${userInput}`,
                         dataType: 'json',
                         success: function(result) {
                             let userInfo = result.userInfo;
-                            isLast = result.last;
+                            isModalLast = result.last;
                             friendList.push(...userInfo);
 
                             viewUserContainer(userInfo);
@@ -112,7 +113,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'post',
-            url: '/api/v1/friends/search',
+            url: '/api/v1/friends',
             dataType: 'json',
             data: {
                 'friendId': userId
@@ -129,5 +130,56 @@ $(document).ready(function() {
                 console.log(request);
             }
         });
+    });
+
+    $('#profileScroll').scroll(function() {
+        let $this = $(this);
+        // 현재 스크롤 위치
+        let currentScroll = $this.scrollTop();
+        // 스크롤 뷰 높이
+        let scrollHeight = $('#profileScroll').prop('scrollHeight');
+        let clientHeight = $('#profileScroll').prop('clientHeight');
+
+        if(currentScroll >= (scrollHeight - clientHeight)) {
+            // 현재 friendList에 있는 user의 개수 = cursorId
+            let cursorId = $('.friend-list').find('.user').length;
+
+            if(!isFriendLast) {
+                $.ajax({
+                    type: 'get',
+                    url: `/api/v1/friends/list?cursorId=${cursorId}`,
+                    dataType: 'json',
+                    success: function(result) {
+                        const friendList = $('.friend-list');
+                        isFriendLast = result.last;
+
+                        $.each(result.userInfo, function(index, friend){
+                            let userContainer = $('<div class="user-container"></div>');
+
+                            let inner = `
+                                <div class="user">
+                                    <input type="hidden" class="friend-id" value="${friend.userId}"/>
+                                    <img src="${friend.profileUrl}" alt="">
+                                    <div class="user-info">
+                                        <div class="user-top">
+                                            <div>
+                                                <span class="nickname">${friend.nickname}</span>
+                                            </div>
+                                        </div>
+                                        <span class="comment">${friend.description == null ? '' : friend.description}</span>
+                                    </div>
+                                </div>
+                            `;
+
+                            userContainer.append(inner);
+                            friendList.append(userContainer);
+                        });
+                    },
+                    error: function(request, status, error) {
+                        console.log(request);
+                    }
+                });
+            }
+        }
     });
 });
