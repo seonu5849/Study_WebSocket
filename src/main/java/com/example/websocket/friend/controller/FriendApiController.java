@@ -26,7 +26,7 @@ public class FriendApiController {
     private final AddFriendService addFriendService;
 
     @Operation(description = "친구 검색 시 출력 리스트")
-    @GetMapping("/friend")
+    @GetMapping("/friends/search")
     public ResponseEntity<FriendDto> friendView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       Integer cursorId,
                                                       String email,

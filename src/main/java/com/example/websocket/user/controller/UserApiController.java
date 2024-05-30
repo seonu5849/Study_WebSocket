@@ -41,10 +41,4 @@ public class UserApiController {
                 .body(baseResponse);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<BaseResponse> login(@RequestBody UserLoginDto loginDto) {
-//        log.debug("userLoginDto: {}", loginDto);
-//        return null;
-//    }
-
 }

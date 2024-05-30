@@ -19,7 +19,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'get',
-                url: `/api/v1/friend?cursorId=0&email=${userInput}`,
+                url: `/api/v1/friends/search?cursorId=0&email=${userInput}`,
                 dataType: 'json',
                 success: function(result) {
                     let userInfo = result.userInfo;
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'post',
-            url: '/api/v1/friend',
+            url: '/api/v1/friends/search',
             dataType: 'json',
             data: {
                 'friendId': userId
