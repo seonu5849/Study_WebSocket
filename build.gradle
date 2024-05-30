@@ -53,6 +53,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
+def querydslSrcDir = 'src/main/generated'
+clean {
+	delete file(querydslSrcDir)
+}
+tasks.withType(JavaCompile) {
+	options.generatedSourceOutputDirectory = file(querydslSrcDir)
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
