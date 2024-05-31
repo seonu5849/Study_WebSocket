@@ -16,30 +16,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class SearchFriendService {
+public class FindFriendService {
 
     private final UserRepository userRepository;
     private final FriendQueryRepository friendQueryRepository;
 
-    // 무한 스크롤 구현을 위한 Slice
     @Transactional(readOnly = true)
-    public FriendDto searchFriendList(Long userId, Integer cursorId, String email) {
+    public FriendDto findFriends(Long userId, String nickname, Integer cursorId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(ErrorStatus.USER_NOT_FOUND));
 
-        Slice<User> slice = friendQueryRepository.findFriendByEmail(user.getId(), email, cursorId);
+        Slice<User> findFriendList =
+                friendQueryRepository.findByNickname(user.getId(), nickname, cursorId);
 
         return FriendDto.builder()
-                        .userInfo(slice.stream()
-                                .map(u -> UserInfo.builder()
-                                        .userId(u.getId())
-                                        .nickname(u.getNickname())
-                                        .profileUrl(u.getProfileImg())
-                                        .build())
-                                .toList())
-                .isLast(slice.isLast())
+                .userInfo(findFriendList.stream()
+                        .map(u -> UserInfo.builder()
+                                .userId(u.getId())
+                                .profileUrl(u.getProfileImg())
+                                .nickname(u.getNickname())
+                                .build()).toList())
+                .isLast(findFriendList.isLast())
                 .build();
-
     }
 
 }

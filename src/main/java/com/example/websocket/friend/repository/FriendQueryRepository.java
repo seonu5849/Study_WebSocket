@@ -10,4 +10,6 @@ public interface FriendQueryRepository {
     Slice<User> findFriendByEmail(Long userId, String email, Integer cursorId);
     Optional<Slice<User>> findFriendById(Long userId, Integer cursorId);
 
+    Slice<User> findByNickname(Long userId, String nickname, Integer cursorId);
+
 }

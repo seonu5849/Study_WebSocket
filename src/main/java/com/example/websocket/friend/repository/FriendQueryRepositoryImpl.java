@@ -52,11 +52,7 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                 .fetch();
 
         // 다음 페이지가 있는지 확인
-        boolean hasNext = users.size() > pageable.getPageSize();
-        if(hasNext) {
-            users.remove(users.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
-        }
-
+        Boolean hasNext = hasNextList(users, pageable);
         return new SliceImpl<>(users, pageable, hasNext);
     }
 
@@ -77,11 +73,34 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                 .fetch();
 
         // 다음 페이지가 있는지 확인
-        boolean hasNext = users.size() > pageable.getPageSize();
-        if(hasNext) {
-            users.remove(users.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
-        }
+        Boolean hasNext = hasNextList(users, pageable);
         return Optional.of(new SliceImpl<>(users, pageable, hasNext));
+    }
+
+    @Override
+    public Slice<User> findByNickname(Long userId, String nickname, Integer cursorId) {
+        Pageable pageable = PageRequest.of(0, PAGE_SIZE);
+        QUser user2 = new QUser("user2");
+
+        // email이 비어있는 상태로 전송되었다면 빈 리스트를 반환해준다.
+        if(StringHelper.isEmpty(nickname)) {
+            return new SliceImpl<>(Collections.emptyList(), pageable, false);
+        }
+
+        List<User> friendList = query.select(user2)
+                .from(user)
+                .join(friend).on(user.id.eq(friend.friendId.userId))
+                .join(user2).on(user2.id.eq(friend.friendId.friendId))
+                .where(user.id.eq(userId)
+                        .and(user2.nickname.like("%" + nickname + "%")))
+                .offset(cursorId)
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        // 다음 페이지가 있는지 확인
+        Boolean hasNext = hasNextList(friendList, pageable);
+
+        return new SliceImpl<>(friendList, pageable, hasNext);
     }
 
     // 친구가 이미 된 친구가 누군지를 조회하는 서브쿼리
@@ -91,5 +110,11 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                 .where(friend.friendId.userId.eq(userId));
     }
 
-
+    private <T> Boolean hasNextList(List<T> t, Pageable pageable) {
+        boolean hasNext = t.size() > pageable.getPageSize();
+        if(hasNext) {
+            t.remove(t.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
+        }
+        return hasNext;
+    }
 }

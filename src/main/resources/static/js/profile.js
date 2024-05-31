@@ -7,7 +7,7 @@ $(document).ready(function() {
     let isModalLast = false; // 모달창에서 다음 유저가 있는지를 boolean 타입으로 받음.
     let isFriendLast = false; // 친구목록에서 다음 유저가 있는지를 boolean 타입으로 받음.
 
-    $('#searchFriendInput').on('input change', function() {
+    $('#friend-add-modal #searchFriendInput').on('input', function() {
         let $this = $(this);
 
         clearTimeout(timeoutId); // 이전 타이머 제거
@@ -29,7 +29,7 @@ $(document).ready(function() {
                     friendList = userInfo;
                     $view.empty();
                     if(userInfo <= 0) {
-                        const message = "아이디를 검색하면 친구를 찾을 수 있습니다.";
+                        const message = "일치하는 유저가 없습니다.";
                         $view.append(`<span>${message}</span>`);
                     } else {
                         viewUserContainer(userInfo);
@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 
     // 모달창 무한 스크롤
-    $view.scroll(function(e) {
+    $('#friend-add-modal .modal-view').scroll(function() {
         // 현재 높이 저장
         let currentScroll = $(this).scrollTop();
         let cursorId = 0; // 커서 아이디 초기화
@@ -113,11 +113,11 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'post',
-            url: '/api/v1/friends',
+            url: '/api/v1/friends/'+userId,
             dataType: 'json',
-            data: {
-                'friendId': userId
-            },
+//            data: {
+//                'friendId': userId
+//            },
             success: function(result) {
                 if(result) {
                     let successAddText = $('<span></span>').text('친구완료');
