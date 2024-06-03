@@ -30,7 +30,7 @@ public class FriendListService {
                                 .userId(user.getId())
                                 .nickname(user.getNickname())
                                 .profileUrl(user.getProfileImg())
-                                .description(user.getDescription())
+                                .statusMessage(user.getStatusMessage())
                                 .build())
                         .toList())
                 .hasNext(users.hasNext())

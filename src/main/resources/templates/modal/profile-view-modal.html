@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .modal {
+            /* display: none; */
+            position: absolute;
+            top: 8px;
+            width: 380px;
+            height: 600px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal .modal-popup {
+            /* 팝업 */
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+        }
+        #profile-view-modal {
+            display: none;
+        }
+        #profile-view-modal .close-btn {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+        }
+        #profile-view-modal > .modal-popup {
+            background-color: #333;
+            width: 250px;
+            height: 400px;
+        }
+        #profile-view-modal .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #profile-view-modal img {
+            width: 70px;
+            height: 70px;
+            border-radius: 35%;
+        }
+        #profile-view-modal .nickname {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        #profile-view-modal .description {
+            text-align: center;
+            font-size: 15px;
+            color: #ffffff;
+        }
+
+        #profile-view-modal hr {
+            width: 90%;
+            border: 1px solid rgba(200, 200, 200, 1);
+            position: absolute;
+            top: 80%;
+            left: 0;
+            right: 0;
+        }
+
+        #profile-view-modal .edit-box {
+            position: absolute;
+            top: 92%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 10px;
+        }
+        #profile-view-modal .edit-box > button {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 50px;
+            gap: 15px;
+            text-align: center;
+        }
+        #profile-view-modal .edit-box > button > .button-text {
+            font-size: 10px;
+            color: #ffffff;
+        }
+
+        .modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-top .close-btn {
+            width: 30px;
+            height: 20px;
+            background: none;
+            border: none;
+        }
+
+        /* ============= */
+        
+        #profile-edit-modal > .modal-popup {
+    background-color: #333;
+    width: 220px;
+    height: 300px;
+}
+
+#profile-edit-modal .modal-top {
+    color: #ffffff;
+}
+
+#profile-edit-modal .user-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#profile-edit-modal .img-box {
+    position: relative;
+}
+#profile-edit-modal .img-box > button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #ffffff;
+    border: 0.1px solid black;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+#profile-edit-modal img {
+    width: 80px;
+    height: 80px;
+    border-radius: 35%;
+}
+#profile-edit-modal .input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+#profile-edit-modal .input-box input {
+    width: 100%;
+    margin: 3px;
+    border: none;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+    background: none;
+    padding-bottom: 2px;
+}
+#profile-edit-modal .input-box input::placeholder {
+    color: rgba(200, 200, 200, 0.6);
+}
+#profile-edit-modal .input-box input:focus {
+    border-bottom: 1px solid rgba(200, 200, 200, 1);
+    outline: none;
+}
+#profile-edit-modal #editSubmit {
+    width: 100%;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(200, 200, 200, 0.1);
+    color: rgba(200, 200, 200, 0.6);
+}
+    </style>
+    <script src="https://kit.fontawesome.com/60f1c983aa.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div th:fragment="profile-view-modal" class="modal" id="profile-view-modal">
+        <div class="modal-popup">
+            <div class="modal-top">
+                <button type="button" class="close-btn" id="profileViewCloseBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="user-info">
+                <input type="hidden" name="userId" id="userId">
+                <img src="../d3BPj1706541860.jpg" alt="">
+                <span class="nickname">닉네임</span>
+                <span class="statusMessage">설명</span>
+            </div>
+            <hr>
+            <div class="edit-box">
+            </div>
+        </div>
+    </div>
+    <div th:fragment="profile-edit-modal" class="modal" id="profile-edit-modal">
+        <div class="modal-popup">
+            <div class="modal-top">
+                <h3>기본프로필 편집</h3>
+                <button type="button" class="close-btn" id="editViewCloseBtn">
+                    <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            <div class="user-edit">
+                <div class="img-box">
+                    <img src="../d3BPj1706541860.jpg" alt="" id="profileImg">
+                    <input type="file" id="profileInput" style="display: none;">
+                    <button type="button" id="uploadBtn">
+                        <i class="fa-solid fa-camera" style="color: #000000;"></i>
+                    </button>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="nickname" placeholder="닉네임을 입력해주세요.">
+                    <input type="text" id="statusMessage" placeholder="상태메시지를 입력해주세요.">
+                </div>
+                <button type="button" id="editSubmit">확인</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    const modal = $('.modal');
     const modalMain = $('.modal-main');
 
     // button 태그 사용시 type="button" 을 해주지 않으면 js에서 인식을 못한다.
@@ -39,8 +38,10 @@ $(document).ready(function(){
         modalView.append(`<span>${message}</span>`);
     }
 
-    // 닫기 버튼을 눌렀을 때 모달팝업이 닫힘
-    $('.close-btn').click(function(){
+    // profile -> 친구추가 모달창 닫기
+    $('#friendAddCloseBtn, #friendSearchCloseBtn, #profileViewCloseBtn, #editViewCloseBtn').click(function(){
+        let modal = $(this).closest('.modal');
         modal.css('display', 'none');
     });
+
 });

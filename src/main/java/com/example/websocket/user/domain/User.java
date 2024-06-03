@@ -25,5 +25,6 @@ public class User extends BaseTimeEntity {
     private String nickname;
     private String password;
     private String profileImg;
-    private String description;
+    private String backgroundImg;
+    private String statusMessage;
 }

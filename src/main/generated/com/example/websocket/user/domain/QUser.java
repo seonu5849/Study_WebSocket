@@ -21,10 +21,10 @@ public class QUser extends EntityPathBase<User> {
 
     public final com.example.websocket.config.domain.QBaseTimeEntity _super = new com.example.websocket.config.domain.QBaseTimeEntity(this);
 
+    public final StringPath backgroundImg = createString("backgroundImg");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
-
-    public final StringPath description = createString("description");
 
     public final StringPath email = createString("email");
 
@@ -35,6 +35,8 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath password = createString("password");
 
     public final StringPath profileImg = createString("profileImg");
+
+    public final StringPath statusMessage = createString("statusMessage");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;

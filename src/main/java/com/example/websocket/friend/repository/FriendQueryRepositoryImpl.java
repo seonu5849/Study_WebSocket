@@ -112,13 +112,9 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
 
     private <T> Boolean hasNextList(List<T> list, Pageable pageable) {
         boolean hasNext = list.size() > pageable.getPageSize();
-        log.info("listSize: {}", list.size());
-        log.info("pageSize: {}",pageable.getPageSize());
-
         if(hasNext) {
             list.remove(list.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
         }
-        log.info("hasNext: {}", hasNext);
         return hasNext;
     }
 }

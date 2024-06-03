@@ -7,6 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/common_chatroom.css}">
     <link rel="stylesheet" th:href="@{/css/profile.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/profile-view-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/profile-edit-modal.css}">
 </head>
 <body>
     <section>
@@ -26,6 +28,7 @@
             <div class="chat-room" id="profileScroll">
                 <div class="user-container">
                     <div class="user" th:object="${myInfo}">
+                        <input type="hidden" class="friend-id" th:value="*{id}"/>
                         <img th:src="@{d3BPj1706541860.jpg}" alt="">
                         <div class="user-info">
                             <div class="user-top">
@@ -33,7 +36,7 @@
                                     <span class="nickname" th:text="*{nickname}">닉네임</span>
                                 </div>
                             </div>
-                            <span class="comment" th:text="*{description}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                            <span class="comment" th:text="*{statusMessage}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>
@@ -41,7 +44,7 @@
                 <div class="friend-list">
                     <div th:each="friend : ${friendList.userInfo}" class="user-container">
                         <div class="user">
-                            <input type="hidden" class="friend-id" value="${friend.userId}"/>
+                            <input type="hidden" class="friend-id" th:value="${friend.userId}"/>
                             <img th:src="${friend.profileUrl}" alt="">
                             <div class="user-info">
                                 <div class="user-top">
@@ -49,7 +52,7 @@
                                         <span class="nickname" th:text="${friend.nickname}">닉네임</span>
                                     </div>
                                 </div>
-                                <span class="comment" th:text="${friend.description}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                                <span class="comment" th:text="${friend.statusMessage}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                             </div>
                         </div>
                     </div>
@@ -59,11 +62,15 @@
     </section>
     <div th:replace="~{/modal/friend-add-modal :: friend-add-modal}"></div>
     <div th:replace="~{/modal/friend-search-modal :: friend-search-modal}"></div>
+    <div th:replace="~{/modal/profile-view-modal :: profile-view-modal}"></div>
+    <div th:replace="~{/modal/profile-view-modal :: profile-edit-modal}"></div>
 
 <!--    <script type="text/javascript" th:src="@{/js/test.js}"></script>-->
-    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
-    <script type="text/javascript" th:src="@{/js/side_bar.js}"></script>
-    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
-    <script type="text/javascript" th:src="@{/js/profileSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal/modal.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fragment/sideBar.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile/profile.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal/profileSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile/profileView.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile/profileEdit.js}"></script>
 </body>
 </html>

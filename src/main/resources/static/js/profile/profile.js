@@ -166,7 +166,7 @@ $(document).ready(function() {
                                                 <span class="nickname">${friend.nickname}</span>
                                             </div>
                                         </div>
-                                        <span class="comment">${friend.description == null ? '' : friend.description}</span>
+                                        <span class="comment">${friend.statusMessage == null ? '' : friend.statusMessage}</span>
                                     </div>
                                 </div>
                             `;

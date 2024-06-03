@@ -86,7 +86,6 @@ $(document).ready(function() {
                 </div>
             `;
             userContainer.append(inner);
-
         });
     }
 

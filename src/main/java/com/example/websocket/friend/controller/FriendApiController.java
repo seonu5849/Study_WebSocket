@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/friends")
 public class FriendApiController {
 
     private final SearchFriendService searchFriendService;
@@ -26,7 +26,7 @@ public class FriendApiController {
     private final AddFriendService addFriendService;
     private final FindFriendService findFriendService;
 
-    @GetMapping("/friends/list")
+    @GetMapping("/list")
     public ResponseEntity<FriendDto> friendListView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                     Integer cursorId) {
         log.debug("friendListView({}, {}) invoked.", principalDetail.getUser().getId(), cursorId);
@@ -37,7 +37,7 @@ public class FriendApiController {
     }
 
     @Operation(description = "친구 검색 시 출력 리스트")
-    @GetMapping("/friends/search")
+    @GetMapping("/search")
     public ResponseEntity<FriendDto> friendSearchView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       Integer cursorId,
                                                       String email,
@@ -51,7 +51,7 @@ public class FriendApiController {
     }
 
     @Operation(description = "친구 추가 API")
-    @PostMapping("/friends/{friendId}")
+    @PostMapping("/{friendId}")
     public ResponseEntity<Boolean> addFriend(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                              @PathVariable Long friendId) {
         log.debug("userId: {}, friendId: {}", principalDetail.getUser().getId(), friendId);
@@ -60,7 +60,7 @@ public class FriendApiController {
     }
 
     @Operation(description = "친구 검색 API")
-    @GetMapping("/friends/find")
+    @GetMapping("/find")
     public ResponseEntity<FriendDto> findFriends(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                  String nickname,
                                                  @RequestParam(defaultValue = "0") Integer cursorId) {
