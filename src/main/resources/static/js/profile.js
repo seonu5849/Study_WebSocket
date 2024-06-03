@@ -4,8 +4,8 @@ $(document).ready(function() {
     let userInput; // 유저가 입력한 input 데이터를 담을 변수
     let lastScroll = 0; // 현재 스크롤 위치 저장
     let friendList = []; // 서보로부터 받은 유저의 정보를 담는 배열 (계속해서 축적함.)
-    let isModalLast = false; // 모달창에서 다음 유저가 있는지를 boolean 타입으로 받음.
-    let isFriendLast = false; // 친구목록에서 다음 유저가 있는지를 boolean 타입으로 받음.
+    let isModalLast = true; // 모달창에서 다음 유저가 있는지를 boolean 타입으로 받음.
+    let isFriendLast = true; // 친구목록에서 다음 유저가 있는지를 boolean 타입으로 받음.
 
     $('#friend-add-modal #searchFriendInput').on('input', function() {
         let $this = $(this);
@@ -24,7 +24,7 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(result) {
                     let userInfo = result.userInfo;
-                    isModalLast = result.last;
+                    isModalLast = result.hasNext;
 
                     friendList = userInfo;
                     $view.empty();
@@ -61,14 +61,14 @@ $(document).ready(function() {
 
                 let cursorId = friendList.length;
 
-                if(!isModalLast) { // 마지막일 경우 서버와 통신하지 않는다.
+                if(isModalLast) { // 마지막일 경우 서버와 통신하지 않는다.
                     $.ajax({
                         type: 'get',
                         url: `/api/v1/friends/search?cursorId=${cursorId}&email=${userInput}`,
                         dataType: 'json',
                         success: function(result) {
                             let userInfo = result.userInfo;
-                            isModalLast = result.last;
+                            isModalLast = result.hasNext;
                             friendList.push(...userInfo);
 
                             viewUserContainer(userInfo);
@@ -144,14 +144,14 @@ $(document).ready(function() {
             // 현재 friendList에 있는 user의 개수 = cursorId
             let cursorId = $('.friend-list').find('.user').length;
 
-            if(!isFriendLast) {
+            if(isFriendLast) {
                 $.ajax({
                     type: 'get',
                     url: `/api/v1/friends/list?cursorId=${cursorId}`,
                     dataType: 'json',
                     success: function(result) {
                         const friendList = $('.friend-list');
-                        isFriendLast = result.last;
+                        isFriendLast = result.hasNext;
 
                         $.each(result.userInfo, function(index, friend){
                             let userContainer = $('<div class="user-container"></div>');

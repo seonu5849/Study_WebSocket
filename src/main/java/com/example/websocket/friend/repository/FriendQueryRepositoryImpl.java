@@ -68,7 +68,7 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                                 .where(friend.friendId.userId.eq(userId))
                 ))
                 .offset(cursorId)
-                .limit(pageable.getPageSize())
+                .limit(pageable.getPageSize() + 1)
                 .orderBy(user.nickname.asc())
                 .fetch();
 
@@ -94,7 +94,7 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                 .where(user.id.eq(userId)
                         .and(user2.nickname.like("%" + nickname + "%")))
                 .offset(cursorId)
-                .limit(pageable.getPageSize())
+                .limit(pageable.getPageSize() + 1)
                 .fetch();
 
         // 다음 페이지가 있는지 확인
@@ -110,11 +110,15 @@ public class FriendQueryRepositoryImpl implements FriendQueryRepository {
                 .where(friend.friendId.userId.eq(userId));
     }
 
-    private <T> Boolean hasNextList(List<T> t, Pageable pageable) {
-        boolean hasNext = t.size() > pageable.getPageSize();
+    private <T> Boolean hasNextList(List<T> list, Pageable pageable) {
+        boolean hasNext = list.size() > pageable.getPageSize();
+        log.info("listSize: {}", list.size());
+        log.info("pageSize: {}",pageable.getPageSize());
+
         if(hasNext) {
-            t.remove(t.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
+            list.remove(list.size() - 1); // 다음 페이지가 있으면 리스트에서 마지막 요소 제거
         }
+        log.info("hasNext: {}", hasNext);
         return hasNext;
     }
 }

@@ -37,7 +37,7 @@ public class SearchFriendService {
                                         .profileUrl(u.getProfileImg())
                                         .build())
                                 .toList())
-                .isLast(slice.isLast())
+                .hasNext(slice.hasNext())
                 .build();
 
     }

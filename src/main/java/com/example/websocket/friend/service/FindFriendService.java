@@ -36,7 +36,7 @@ public class FindFriendService {
                                 .profileUrl(u.getProfileImg())
                                 .nickname(u.getNickname())
                                 .build()).toList())
-                .isLast(findFriendList.isLast())
+                .hasNext(findFriendList.hasNext())
                 .build();
     }
 

@@ -31,7 +31,7 @@ public class FriendApiController {
                                                     Integer cursorId) {
         log.debug("friendListView({}, {}) invoked.", principalDetail.getUser().getId(), cursorId);
         FriendDto friendDto = friendListService.profileFriendList(principalDetail.getUser().getId(), cursorId);
-
+        log.info("friendDto: {}", friendDto);
         return ResponseEntity.ok()
                 .body(friendDto);
     }
@@ -67,6 +67,7 @@ public class FriendApiController {
         log.debug("findFriends({}, {}) invoked.", nickname, cursorId);
         FriendDto findFriendList =
                 findFriendService.findFriends(principalDetail.getUser().getId(), nickname, cursorId);
+        log.info("findFriendList: {}", findFriendList);
         return ResponseEntity.ok(findFriendList);
     }
 

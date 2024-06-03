@@ -12,7 +12,7 @@ import java.util.List;
 public class FriendDto {
 
     private List<UserInfo> userInfo;
-    private boolean isLast; // 마지막 페이지인지 아닌지를 정함
+    private boolean hasNext; // 마지막 페이지인지 아닌지를 정함
 
 }
 

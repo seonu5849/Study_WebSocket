@@ -33,7 +33,7 @@ public class FriendListService {
                                 .description(user.getDescription())
                                 .build())
                         .toList())
-                .isLast(users.isLast())
+                .hasNext(users.hasNext())
                 .build();
     }
 
