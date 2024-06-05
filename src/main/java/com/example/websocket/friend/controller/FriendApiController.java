@@ -1,6 +1,7 @@
 package com.example.websocket.friend.controller;
 
 import com.example.websocket.config.security.domain.PrincipalDetail;
+import com.example.websocket.file.utils.FileUtil;
 import com.example.websocket.friend.dto.response.FriendDto;
 import com.example.websocket.friend.service.AddFriendService;
 import com.example.websocket.friend.service.FindFriendService;
@@ -10,10 +11,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.MalformedURLException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +31,7 @@ public class FriendApiController {
     private final AddFriendService addFriendService;
     private final FindFriendService findFriendService;
 
+    @Operation(summary = "친구 목록 - 무한스크롤 API")
     @GetMapping("/list")
     public ResponseEntity<FriendDto> friendListView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                     Integer cursorId) {
@@ -36,7 +42,7 @@ public class FriendApiController {
                 .body(friendDto);
     }
 
-    @Operation(description = "친구 검색 시 출력 리스트")
+    @Operation(summary = "친구 검색 시 출력 리스트")
     @GetMapping("/search")
     public ResponseEntity<FriendDto> friendSearchView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       Integer cursorId,
@@ -50,7 +56,7 @@ public class FriendApiController {
                 .body(searchFriendList);
     }
 
-    @Operation(description = "친구 추가 API")
+    @Operation(summary = "친구 추가 API")
     @PostMapping("/{friendId}")
     public ResponseEntity<Boolean> addFriend(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                              @PathVariable Long friendId) {
@@ -59,7 +65,7 @@ public class FriendApiController {
         return ResponseEntity.ok(isSave);
     }
 
-    @Operation(description = "친구 검색 API")
+    @Operation(summary = "친구 검색 API")
     @GetMapping("/find")
     public ResponseEntity<FriendDto> findFriends(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                  String nickname,
@@ -69,6 +75,13 @@ public class FriendApiController {
                 findFriendService.findFriends(principalDetail.getUser().getId(), nickname, cursorId);
         log.info("findFriendList: {}", findFriendList);
         return ResponseEntity.ok(findFriendList);
+    }
+
+    @Operation(summary = "로컬 프로필 사진 출력 API")
+    @GetMapping("/profile/{fileName}")
+    public Resource printImage(@PathVariable String fileName) throws MalformedURLException {
+        log.info("printImage({}) invoked.", fileName);
+        return new UrlResource("file", FileUtil.getFullPath(fileName));
     }
 
 }

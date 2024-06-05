@@ -92,7 +92,7 @@ $(document).ready(function() {
             const userHtml = `
                 <div class="user">
                     <input type="hidden" class="user-id" value="${user.userId}"></input>
-                    <img src="d3BPj1706541860.jpg" alt="">
+                    <img src="/api/v1/friends/profile/${user.profileUrl}" alt="">
                     <div class="user-info">
                         <span class="nickname">${user.nickname}</span>
                         <button type="button" id="selectFriendBtn" class="select-friend">친구추가</button>
@@ -159,7 +159,7 @@ $(document).ready(function() {
                             let inner = `
                                 <div class="user">
                                     <input type="hidden" class="friend-id" value="${friend.userId}"/>
-                                    <img src="${friend.profileUrl}" alt="">
+                                    <img src="/api/v1/friends/profile/${friend.profileUrl}" alt="">
                                     <div class="user-info">
                                         <div class="user-top">
                                             <div>

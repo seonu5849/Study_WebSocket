@@ -214,18 +214,21 @@
                 </button>
             </div>
             <div class="user-edit">
-                <div class="img-box">
-                    <img src="../d3BPj1706541860.jpg" alt="" id="profileImg">
-                    <input type="file" id="profileInput" style="display: none;">
-                    <button type="button" id="uploadBtn">
-                        <i class="fa-solid fa-camera" style="color: #000000;"></i>
-                    </button>
-                </div>
-                <div class="input-box">
-                    <input type="text" id="nickname" placeholder="닉네임을 입력해주세요.">
-                    <input type="text" id="statusMessage" placeholder="상태메시지를 입력해주세요.">
-                </div>
-                <button type="button" id="editSubmit">확인</button>
+                <form id="editForm" enctype="multipart/form-data">
+                    <div class="img-box">
+                        <img src="../../static/profileImg/originalProfileImg.png" alt="" id="profileImg">
+                        <input type="file" name="profileImg" id="profileInput" style="display: none;">
+                        <button type="button" id="uploadBtn">
+                            <i class="fa-solid fa-camera" style="color: #000000;"></i>
+                        </button>
+                    </div>
+                    <div class="input-box">
+                        <input type="hidden" name="userId" id="userId">
+                        <input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해주세요.">
+                        <input type="text" name="statusMessage" id="statusMessage" placeholder="상태메시지를 입력해주세요.">
+                    </div>
+                </form>
+                <button type="button" id="editBtn" disabled>확인</button>
             </div>
         </div>
     </div>

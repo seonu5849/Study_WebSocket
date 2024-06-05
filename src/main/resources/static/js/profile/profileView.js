@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    let __userId;
+    let __nickname;
+    let __statusMessage;
+    let __profileUrl;
 
     $(document).on('click', '#profileScroll .user-container', function() {
         const user = $(this).find('.user');
@@ -15,6 +19,11 @@ $(document).ready(function() {
             url: `/api/v1/profile/${userId}`,
             dataType: 'json',
             success: function(result) {
+                __userId = result.userId;
+                __nickname = result.nickname;
+                __statusMessage = result.statusMessage;
+                __profileUrl = result.profileUrl;
+
                 if(result.backgroundUrl !== null) {
                     profileView.find('.modal-popup').css({
                         'background-color': 'bisque',
@@ -23,11 +32,11 @@ $(document).ready(function() {
                         'background-position': 'center'
                     });
                 }
-                profileView.find('img').attr('src',result.profileUrl);
+                profileView.find('img').attr('src','/api/v1/friends/profile/'+__profileUrl);
 
-                profileView.find('#userId').val(result.userId);
-                profileView.find('.nickname').text(result.nickname);
-                profileView.find('.statusMessage').text(result.statusMessage);
+                profileView.find('#userId').val(__userId);
+                profileView.find('.nickname').text(__nickname);
+                profileView.find('.statusMessage').text(__statusMessage);
 
                 if(result.mine) { // 내 프로필을 열었을 때
                     appendBtn = `
@@ -54,7 +63,25 @@ $(document).ready(function() {
 
     // "프로필 편집" 버튼 클릭시
     $(document).on('click', '#editProfile', function() {
-        $('#profile-edit-modal').css('display', 'block');
+        const editModal = $('#profile-edit-modal');
+        editModal.css('display', 'block');
+        editModal.find('#userId').val(__userId);
+        editModal.find('#nickname').val(__nickname);
+        if(__statusMessage !== '') {
+            editModal.find('#statusMessage').val(__statusMessage);
+        }
+
+        if(__profileUrl !== ''){
+            editModal.find('#profileImg').attr('src', '/api/v1/friends/profile/'+__profileUrl);
+        }
+
+        // jQuery 커스텀 이벤트를 트리거하여 값을 전달
+        const originalValues = {
+            profileImage: editModal.find('#profileImg').attr('src'),
+            nickname: editModal.find('#nickname').val(),
+            statusMessage: editModal.find('#statusMessage').val()
+        };
+        $(document).trigger('originalValues', originalValues);
     });
 
 });

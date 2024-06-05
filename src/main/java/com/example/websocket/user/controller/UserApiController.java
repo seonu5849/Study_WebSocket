@@ -4,6 +4,7 @@ import com.example.websocket.config.response.BaseResponse;
 import com.example.websocket.user.dto.request.UserLoginDto;
 import com.example.websocket.user.dto.request.UserRegisterDto;
 import com.example.websocket.user.service.UserResisterService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,15 @@ public class UserApiController {
 
     private final UserResisterService userResisterService;
 
+
+    @Operation(summary = "아이디 중복체크 API")
     @PostMapping("/register/duplicate")
     public ResponseEntity<Boolean> duplicate(String email) {
         log.debug("email : {}", email);
         return ResponseEntity.ok(userResisterService.checkDuplicateEmail(email));
     }
 
+    @Operation(summary = "회원가입 API")
     @PostMapping("/register")
     public ResponseEntity<BaseResponse> register(@RequestBody UserRegisterDto userRegisterDto) {
         log.debug("userRegisterDto: {}", userRegisterDto);
