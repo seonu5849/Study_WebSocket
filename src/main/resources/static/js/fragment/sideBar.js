@@ -5,7 +5,7 @@ $(document).ready(function() {
     });
 
     $('#chatroomId').click(function() {
-        location.href = '/chatroom';
+        location.href = '/chatroom/list';
     });
     $('#logoutBtn').click(function() {
         location.href = '/logout';

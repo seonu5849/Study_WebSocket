@@ -48,7 +48,7 @@ public class SecurityConfig {
                     .anyRequest().permitAll())
             .formLogin(customLogin -> customLogin
                     .loginPage("/login")
-                    .defaultSuccessUrl("/chatroom", true)
+                    .defaultSuccessUrl("/chatroom/list", true)
                     .failureHandler(customFailureHandler)
                     .usernameParameter("email")
                     .passwordParameter("password"));

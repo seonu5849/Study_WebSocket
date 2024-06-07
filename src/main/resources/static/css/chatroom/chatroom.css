@@ -1,0 +1,92 @@
+.chatroom-top {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chatroom-top h3 {
+    margin-left: 10px;
+}
+.chatroom-top .close-btn {
+    border: none;
+    background: none;
+    margin-right: 10px;            
+}
+.chatroom-message {
+    height: 500px;
+    overflow: auto;
+    /* background-color: rgba(51, 51, 51, 0.5); */
+}
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 35%;
+    margin-bottom: 10px;
+}
+.user-container {
+    /* width: 100%; */
+    padding: 0 10px;
+    margin-top: 10px;
+    /* background-color: aqua; */
+}
+.user-container .other {
+    display: flex;
+    align-items: center;
+}
+.other .box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-left: 8px;
+}
+.other .nickname {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.other .ballon {
+    background-color: #484848;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 12.8px;
+}
+.other .ballon::after {
+    content: "";
+    border-top: 8px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 8px solid #484848;
+    border-bottom: 8px solid transparent;
+    position: absolute;
+    top: 35px;
+    left: -5px;
+}
+.user-container .mine {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+.mine .ballon {
+    background-color: #484848;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 12.8px;
+}
+.mine .ballon::after {
+    content: "";
+    border-top: 8px solid transparent;
+    border-left: 8px solid #484848;
+    border-right: 0px solid transparent;
+    border-bottom: 8px solid transparent;
+    position: absolute;
+    top: 2px;
+    right: -5px;
+}
+
+.input-box {
+    display: flex;
+    justify-content: space-around;
+}
+.input-box textarea {
+    width: 330px;
+    height: 45px;
+    resize: none;
+}

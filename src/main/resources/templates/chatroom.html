@@ -3,98 +3,65 @@
 <head th:replace="~{common/header :: common_header(~{::title}, ~{::link})}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채팅방</title>
-    <link rel="stylesheet" th:href="@{/css/common/common_chatroom.css}">
-    <link rel="stylesheet" th:href="@{/css/modal/modal.css}">
-    <link rel="stylesheet" th:href="@{/css/modal/modal_main.css}">
-    <link rel="stylesheet" th:href="@{/css/common/side-bar.css}">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/chatroom/chatroom.css}">
 </head>
 <body>
     <section>
-        <div th:replace="~{/fragments/side_bar :: common_sidebar}"></div>
         <div class="main">
-            <form class="menu-box" action="" method="get">
-                <span>채팅목록</span>
-                <!-- <input class="search-txt" type="text" placeholder="닉네임을 입력하세요."> -->
-                <div class="btn-box">
-                    <button type="button" class="search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <button type="button" class="plus-btn modal-btn">
-                        <i class="fa-solid fa-comment-medical"></i>
+            <div class="menu-box">
+                <div class="chatroom-top">
+                    <h3 class="chatroom-title">채팅방 이름</h3>
+                    <button type="button" class="close-btn" id="chatroomCloseBtn">
+                        <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-            </form>
-            <div class="chat-room">
+            </div>
+            <div class="chatroom-message">
                 <div class="user-container">
-                    <div class="user">
+                    <div class="other">
                         <img src="d3BPj1706541860.jpg" alt="">
-                        <div class="user-info">
-                            <div class="user-top">
-                                <div>
-                                    <span class="nickname">닉네임</span>
-                                    <span class="person-count">0</span>
-                                </div>
-                                <span class="date">날짜</span>
+                        <div class="box">
+                            <span class="nickname">닉네임</span>
+                            <div class="ballon">
+                                <span class="commnet">내용</span>
                             </div>
-                            <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>
+                <div class="user-container">
+                    <div class="mine">
+                        <div class="ballon">
+                            <span class="commnet">내용</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-container">
+                    <div class="mine">
+                        <div class="ballon">
+                            <span class="commnet">내용</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-container">
+                    <div class="other">
+                        <img src="d3BPj1706541860.jpg" alt="">
+                        <div class="box">
+                            <span class="nickname">닉네임</span>
+                            <div class="ballon">
+                                <span class="commnet">내용</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
+                <textarea name="message" id="chatMessage"></textarea>
+                <button type="button" id="sendMessageBtn">전송</button>
             </div>
         </div>
     </section>
-    <div class="modal">
-        <div class="modal-popup">
-            <div class="modal-top">
-                <h3>채팅방 생성</h3>
-                <button type="button" class="close-btn">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-main">
-                <div class="choose-friend">
-                    <div class="search-area">
-                        <input class="modal-input" type="text">
-                    </div>
-                    <div class="modal-view">
-                        <div class="user">
-                            <img src="d3BPj1706541860.jpg" alt="">
-                            <div class="user-info">
-                                <span class="nickname">닉네임</span>
-                                <div class="checkbox-area">
-                                    <input class="checkbox" type="checkbox" name="" id="nick-check">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-box">
-                        <button class="modal-next-btn" type="button">다음</button>
-                    </div>
-                </div>
-                <div class="input-chatroom">
-                    <div class="friend-list">
-                        <div class="user">
-                            <img src="d3BPj1706541860.jpg" alt="">
-                            <div class="user-info">
-                                <span class="nickname">닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-view">
-                        <input class="title" type="text" placeholder="채팅방 이름 입력">
-                    </div>
-                    <div class="btn-box">
-                        <button class="modal-back-btn" type="button">뒤로</button>
-                        <button class="modal-submit-btn" type="button">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript" th:src="@{/js/test.js}"></script>
-    <script type="text/javascript" th:src="@{/js/modal/modal.js}"></script>
-    <script type="text/javascript" th:src="@{/js/modal/modalChatRoom.js}"></script>
-    <script type="text/javascript" th:src="@{/js/fragment/sideBar.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/chatroom/chatroomMessage.js}"></script>
 </body>
 </html>
