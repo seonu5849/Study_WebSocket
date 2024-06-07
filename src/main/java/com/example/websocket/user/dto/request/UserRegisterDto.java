@@ -19,6 +19,7 @@ public class UserRegisterDto {
                 .email(this.email)
                 .nickname(this.nickname)
                 .password(this.password)
+                .profileImg("originalProfileImg.png")
                 .build();
     }
 
