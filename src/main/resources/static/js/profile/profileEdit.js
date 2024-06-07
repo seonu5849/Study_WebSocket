@@ -58,7 +58,8 @@ $(document).ready(function(){
             processData: false, // 파일 데이터를 문자열로 변환하지 않도록 설정
             contentType: false, // 기본적으로 'application/x-www-form-urlencoded'으로 설정되는 것을 방지
             success: function(result) {
-                console.log(result);
+                alert('수정이 완료되었습니다.');
+                location.href = "/profile";
             },
             error: function(request, status, error) {
                 console.log(request);

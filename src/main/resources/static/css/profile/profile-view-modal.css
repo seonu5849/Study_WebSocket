@@ -2,6 +2,7 @@
     position: absolute;
     top: 5%;
     right: 5%;
+    color: #ffffff;
 }
 #profile-view-modal > .modal-popup {
     background-color: #333;
