@@ -49,26 +49,6 @@
     -webkit-box-orient: vertical; /* FlexBox의 컨테이너 방향을 수직으로 변경 */
 }
 
-/* nav 관련 */
-nav {
-    width: 60px;
-    height: 600px;
-    float: left;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    background-color: bisque;
-}
-nav button {
-    border: none;
-    background-color: transparent;
-}
-nav .user-btn {
-    margin-top: 65px;
-    margin-bottom: 20px;
-
-}
-
 .main {
     background-color: rgb(238, 201, 156);
 }

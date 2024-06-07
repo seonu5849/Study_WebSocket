@@ -1,0 +1,21 @@
+/* nav 관련 */
+nav {
+    width: 60px;
+    height: 600px;
+    float: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+}
+nav button {
+    border: none;
+    background-color: transparent;
+}
+nav .user-btn {
+    margin-top: 65px;
+    margin-bottom: 20px;
+}
+nav .logout-btn {
+    margin-top: 380px;
+}

@@ -81,7 +81,7 @@ $(document).ready(function() {
             const inner = `
                 <div class="user">
                     <input type="hidden" class="friend-id" value="${friend.userId}"/>
-                    <img src="${friend.profileUrl}" alt="">
+                    <img src="/api/v1/friends/profile/${friend.profileUrl}" alt="">
                     <span class="nickname">${friend.nickname}</span>
                 </div>
             `;
