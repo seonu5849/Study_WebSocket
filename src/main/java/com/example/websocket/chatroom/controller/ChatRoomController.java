@@ -12,18 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class ChatRoomController {
 
-    @GetMapping("/chatroom/list")
+    @GetMapping("/chatrooms/list")
     public String chatroomListView(@AuthenticationPrincipal PrincipalDetail principalDetail) {
         if(principalDetail == null) {
             return "login";
         }
 
         return "chatroom-list";
-    }
-
-    @GetMapping("/chatroom")
-    public String chatroomView() {
-        return "chatroom";
     }
 
 }

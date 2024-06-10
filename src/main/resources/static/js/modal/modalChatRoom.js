@@ -125,16 +125,20 @@ $(document).ready(function() {
         modalView.append(input);
     }
 
+    // 뒤로 버튼 눌렀을 때
     $('.modal-back-btn').click(function(){
         $('.choose-friend').css('display', 'block');
         $('.input-chatroom').css('display', 'none');
     });
 
+    // 최종 확인 눌렀을 때
     $('#addChatroomBtn').click(function() {
         let chatroomTitle = $('#inputTitle .title').val();
 
         // title이 입력되지 않으면 실행되지 않도록 하기
         if(chatroomTitle === '') {
+            alert('채팅방의 제목을 입력해주세요.');
+            $('#inputTitle .title').focus();
             return;
         }
 
@@ -154,6 +158,10 @@ $(document).ready(function() {
             }),
             success: function(result) {
                 console.log(result);
+                if(result) {
+//                    $('#addRoomModal').css('display', 'none');
+                    location.href = "/chatrooms/list";
+                }
             },
             error: function(request, status, error) {
                 console.log(request);

@@ -1,11 +1,11 @@
-.chat-room .user-info {
+.profile .user-info {
     margin-top: 10px;
 }
-.chat-room .line {
+.profile .line {
     width: 280px;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.chat-room .comment {
+.profile .comment {
     white-space: nowrap;
     max-height: none;
     display: block;
