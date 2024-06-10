@@ -30,16 +30,24 @@ $(document).ready(function(){
         messageMainView("닉네임을 검색하면 친구를 찾을 수 있습니다.");
     });
 
+    // chatroom-list -> #searchRoomBtn 클릭
+    $('#addRoomBtn').click(function() {
+        $('#addRoomModal').css('display', 'block');
+        messageMainView("닉네임을 검색하면 친구를 찾을 수 있습니다.");
+    });
+
     function messageMainView(message) {
         const modalView = $('.modal-view');
+        const span = $('<span>', { class: 'message' });
 
         $('input[type=text]').val('');
         modalView.empty();
-        modalView.append(`<span>${message}</span>`);
+        span.text(`${message}`);
+        modalView.append(span);
     }
 
     // profile -> 친구추가 모달창 닫기
-    $('#friendAddCloseBtn, #friendSearchCloseBtn, #profileViewCloseBtn, #editViewCloseBtn').click(function(){
+    $('#friendAddCloseBtn, #friendSearchCloseBtn, #profileViewCloseBtn, #editViewCloseBtn, #addRoomCloseBtn').click(function(){
         let modal = $(this).closest('.modal');
         modal.css('display', 'none');
     });

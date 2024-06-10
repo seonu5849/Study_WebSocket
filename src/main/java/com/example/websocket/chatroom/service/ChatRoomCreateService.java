@@ -1,37 +1,63 @@
 package com.example.websocket.chatroom.service;
 
 import com.example.websocket.chatroom.domain.ChatRoom;
+import com.example.websocket.chatroom.domain.Chatroom2;
+import com.example.websocket.chatroom.domain.InviteChat;
+import com.example.websocket.chatroom.domain.InviteChatId;
+import com.example.websocket.chatroom.dto.request.ChatRoomCreateDto;
+import com.example.websocket.chatroom.repository.ChatRoomRepository;
+import com.example.websocket.chatroom.repository.InviteRepository;
+import com.example.websocket.user.domain.User;
+import com.example.websocket.user.exception.ErrorStatus;
+import com.example.websocket.user.exception.UserException;
+import com.example.websocket.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class ChatService {
+public class ChatRoomCreateService {
 
-    private final ObjectMapper mapper;
-    private Map<String, ChatRoom> chatRooms = new LinkedHashMap<>();
+    private final UserRepository userRepository;
+    private final ChatRoomRepository chatRoomRepository;
+    private final InviteRepository inviteRepository;
 
-    // 채팅방 생성
-    public ChatRoom createChatRoom(String name) {
-        String roomId = UUID.randomUUID().toString();// 고유 번호 생성
+    @Transactional
+    public Long createChatRoom(Long userId, ChatRoomCreateDto chatRoomCreateDto) {
+        log.debug("createChatRoom({}, {}) invoked.", userId, chatRoomCreateDto);
 
-        ChatRoom chatRoom = ChatRoom.builder()
-                .roomId(roomId)
-                .name(name)
-                .build();
+        // 본인도 채팅방이 생성될 때 가입이 되어야 하기 때문에 추가
+        chatRoomCreateDto.getUserIds().add(userId);
+        List<User> users = findById(chatRoomCreateDto);
 
-        chatRooms.put(roomId, chatRoom);
-        return chatRoom;
+        Chatroom2 savedChatRoom = chatRoomRepository.save(chatRoomCreateDto.toChatRoomEntity());
+
+        users.forEach(user -> {
+            InviteChatId inviteChatId = new InviteChatId(user.getId(), savedChatRoom.getId());
+            InviteChat inviteChat = InviteChat.builder()
+                    .inviteChatId(inviteChatId)
+                    .user(user)
+                    .chatroom(savedChatRoom)
+                    .build();
+            inviteRepository.save(inviteChat);
+        });
+        return savedChatRoom.getId();
     }
 
-    // 채팅방 찾기
-    public ChatRoom findById(String id) {
-        return chatRooms.get(id);
+    // 유저가 존재하는지 체크하는 로직
+    private List<User> findById(ChatRoomCreateDto chatRoomCreateDto) {
+        return chatRoomCreateDto.getUserIds().stream()
+                .map(id -> userRepository.findById(id)
+                        .orElseThrow(() -> new UserException(ErrorStatus.USER_NOT_FOUND)))
+                .toList();
     }
-
 }

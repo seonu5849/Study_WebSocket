@@ -54,7 +54,12 @@
     flex-direction: row;
     overflow-x: auto;
 }
-.friend-list > .user {
+.friend-list .user-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.friend-list .user {
     width: 50px;
     display: flex;
     flex-direction: column;

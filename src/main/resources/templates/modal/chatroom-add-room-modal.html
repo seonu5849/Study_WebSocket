@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="chatroom-add-modal" class="modal" id="addRoomModal">
+    <div class="modal-popup">
+        <div class="modal-top">
+            <h3>채팅방 생성</h3>
+            <button type="button" class="close-btn" id="addRoomCloseBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="modal-main">
+            <div class="choose-friend">
+                <div class="search-area">
+                    <input class="modal-input" type="text" id="findFriendInput">
+                </div>
+                <div class="modal-view" id="userList">
+                    <div class="user-container">
+                        <div class="user">
+                            <img src="d3BPj1706541860.jpg" alt="">
+                            <div class="user-info">
+                                <span class="nickname">닉네임</span>
+                                <div class="checkbox-area">
+                                    <input class="checkbox" type="checkbox" name="" id="nick-check">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <button class="modal-next-btn" type="button">다음</button>
+                </div>
+            </div>
+            <div class="input-chatroom">
+                <div class="friend-list">
+                    <div class="user">
+                        <img src="d3BPj1706541860.jpg" alt="">
+                        <div class="user-info">
+                            <span class="nickname">닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임닉네임</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-view" id="inputTitle">
+                    <input class="title" type="text" placeholder="채팅방 이름 입력">
+                </div>
+                <div class="btn-box">
+                    <button class="modal-back-btn" type="button">뒤로</button>
+                    <button class="modal-submit-btn" type="button" id="addChatroomBtn">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

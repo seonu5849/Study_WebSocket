@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class ViewerController {
+public class ChatRoomController {
 
     @GetMapping("/chatroom/list")
     public String chatroomListView(@AuthenticationPrincipal PrincipalDetail principalDetail) {
