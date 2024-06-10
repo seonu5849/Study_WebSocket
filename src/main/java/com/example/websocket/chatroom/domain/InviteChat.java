@@ -11,15 +11,15 @@ import lombok.*;
 @Entity
 public class InviteChat {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "INVITE_CHAT_ID")
-    private Long id;
+    @EmbeddedId
+    private InviteChatId inviteChatId;
 
+    @MapsId("userId")
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @MapsId("chatRoomId")
     @ManyToOne
     @JoinColumn(name = "CHATROOM_ID")
     private Chatroom2 chatroom;
