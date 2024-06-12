@@ -1,6 +1,6 @@
 package com.example.websocket.chatting.domain;
 
-import com.example.websocket.chatroom.domain.Chatroom2;
+import com.example.websocket.chatroom.domain.ChatRoom2;
 import com.example.websocket.config.domain.BaseTimeEntity;
 import com.example.websocket.user.domain.User;
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class Chatting extends BaseTimeEntity {
     @MapsId("chatroomId")
     @ManyToOne
     @JoinColumn(name = "CHATROOM_ID")
-    private Chatroom2 chatroom2;
+    private ChatRoom2 chatroom2;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")

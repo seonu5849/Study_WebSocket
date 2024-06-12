@@ -3,6 +3,10 @@ package com.example.websocket.chatroom.domain;
 import com.example.websocket.config.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.socket.WebSocketSession;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Builder
@@ -10,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "CHATROOM")
-public class Chatroom2 extends BaseTimeEntity {
+public class ChatRoom2 extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -19,4 +23,7 @@ public class Chatroom2 extends BaseTimeEntity {
     private String title;
     private String profileImg;
 
+    @Builder.Default // 빌더에 포함되지 않도록 설정
+    @Transient // 컬럼으로 매핑하지 않도록 설정
+    private Set<WebSocketSession> sessions = new HashSet<>(); // 채팅방에 참가 중인 유저들의 세션 아이디
 }

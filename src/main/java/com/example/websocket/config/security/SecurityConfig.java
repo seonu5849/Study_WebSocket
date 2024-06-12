@@ -1,5 +1,6 @@
 package com.example.websocket.config.security;
 
+import com.example.websocket.config.security.handler.CustomLogoutSuccessHandler;
 import com.example.websocket.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import lombok.RequiredArgsConstructor;
@@ -46,12 +47,19 @@ public class SecurityConfig {
                     .requestMatchers(requestMatchers).permitAll()
 //                    .anyRequest().authenticated() // 테스트를 위해 주석
                     .anyRequest().permitAll())
+//            .sessionManagement(sm -> sm
+//                    .maximumSessions(1)
+//                    .maxSessionsPreventsLogin(true)
+//                    .expiredUrl("/login?expired=true"))
             .formLogin(customLogin -> customLogin
                     .loginPage("/login")
                     .defaultSuccessUrl("/chatrooms/list", true)
                     .failureHandler(customFailureHandler)
                     .usernameParameter("email")
-                    .passwordParameter("password"));
+                    .passwordParameter("password"))
+            .logout(logout -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessHandler(new CustomLogoutSuccessHandler()));
 
 
         return http.build();

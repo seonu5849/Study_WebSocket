@@ -1,4 +1,4 @@
-package com.example.websocket.user.handler;
+package com.example.websocket.user.exception.handler;
 
 import com.example.websocket.config.exception.ErrorResponse;
 import com.example.websocket.user.controller.UserApiController;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class UserExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> duplicateExceptionHanlder(UserException e) {
+    public ResponseEntity<ErrorResponse> duplicateExceptionHandler(UserException e) {
         return ResponseEntity
                 .status(e.getErrorStatus().getStatus())
                 .body(new ErrorResponse(e.getErrorStatus().getMessage()));

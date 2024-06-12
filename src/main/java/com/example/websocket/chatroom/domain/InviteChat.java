@@ -22,6 +22,6 @@ public class InviteChat {
     @MapsId("chatRoomId")
     @ManyToOne
     @JoinColumn(name = "CHATROOM_ID")
-    private Chatroom2 chatroom;
+    private ChatRoom2 chatroom;
 
 }

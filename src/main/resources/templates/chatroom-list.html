@@ -26,18 +26,19 @@
                 </div>
             </form>
             <div class="chatroom">
-                <div class="chatroom-container">
+                <div th:each="chatroom : ${chatrooms}" class="chatroom-container">
                     <div class="chat">
-                        <img src="d3BPj1706541860.jpg" alt="" class="chat-profile">
+                        <img th:src="${chatroom.profileImg}" alt="" class="chat-profile">
                         <div class="chat-info">
                             <div class="chat-top">
                                 <div>
-                                    <span class="title">방이름</span>
-                                    <span class="person-count">0</span>
+                                    <input type="hidden" name="chatroomId" id="chatRoomId" th:value="${chatroom.chatRoomId}">
+                                    <span class="title" th:text="${chatroom.title}">방이름</span>
+                                    <span class="person-count" th:text="${chatroom.personCount}">0</span>
                                 </div>
-                                <span class="date">날짜</span>
+                                <span class="date" th:text="${chatroom.LastCommentDate}">날짜</span>
                             </div>
-                            <span class="comment">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
+                            <span class="comment" th:text="${chatroom.lastComment}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>
@@ -51,5 +52,6 @@
     <script type="text/javascript" th:src="@{/js/modal/modal.js}"></script>
     <script type="text/javascript" th:src="@{/js/modal/modalChatRoom.js}"></script>
     <script type="text/javascript" th:src="@{/js/fragment/sideBar.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chatroom/chatroom.js}"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class QChatting extends EntityPathBase<Chatting> {
 
     public final QChatId chatId;
 
-    public final com.example.websocket.chatroom.domain.QChatroom2 chatroom2;
+    public final com.example.websocket.chatroom.domain.QChatRoom2 chatroom2;
 
     public final StringPath comment = createString("comment");
 
@@ -59,7 +59,7 @@ public class QChatting extends EntityPathBase<Chatting> {
     public QChatting(Class<? extends Chatting> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.chatId = inits.isInitialized("chatId") ? new QChatId(forProperty("chatId")) : null;
-        this.chatroom2 = inits.isInitialized("chatroom2") ? new com.example.websocket.chatroom.domain.QChatroom2(forProperty("chatroom2")) : null;
+        this.chatroom2 = inits.isInitialized("chatroom2") ? new com.example.websocket.chatroom.domain.QChatRoom2(forProperty("chatroom2")) : null;
         this.user = inits.isInitialized("user") ? new com.example.websocket.user.domain.QUser(forProperty("user")) : null;
     }
 

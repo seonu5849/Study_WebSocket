@@ -27,6 +27,7 @@ img {
     /* width: 100%; */
     padding: 0 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
     /* background-color: aqua; */
 }
 .user-container .other {
@@ -43,13 +44,15 @@ img {
     margin-top: 10px;
     margin-bottom: 5px;
 }
-.other .ballon {
+.other .balloon {
     background-color: #484848;
     color: white;
     border-radius: 5px;
     padding: 10px 12.8px;
+    max-width: 220px; /* 최대 너비 설정 */
+    overflow-wrap: break-word; /* 텍스트가 너비를 초과할 경우 단어 단위로 줄 바꿈 */
 }
-.other .ballon::after {
+.other .balloon::after {
     content: "";
     border-top: 8px solid transparent;
     border-left: 0px solid transparent;
@@ -59,18 +62,28 @@ img {
     top: 35px;
     left: -5px;
 }
+.other .other-message-box {
+    display: flex;
+    align-items: flex-end;
+}
+.other-message-box .send-time {
+    margin-left: 10px;
+}
 .user-container .mine {
     display: flex;
     justify-content: flex-end;
     position: relative;
+    align-items: flex-end;
 }
-.mine .ballon {
+.mine .balloon {
     background-color: #484848;
     color: white;
     border-radius: 5px;
     padding: 10px 12.8px;
+    max-width: 220px; /* 최대 너비 설정 */
+    overflow-wrap: break-word; /* 텍스트가 너비를 초과할 경우 단어 단위로 줄 바꿈 */
 }
-.mine .ballon::after {
+.mine .balloon::after {
     content: "";
     border-top: 8px solid transparent;
     border-left: 8px solid #484848;
@@ -79,6 +92,9 @@ img {
     position: absolute;
     top: 2px;
     right: -5px;
+}
+.mine .send-time {
+    margin-right: 10px;
 }
 
 .input-box {

@@ -1,8 +1,11 @@
 $(document).ready(function() {
-    let userId;
+    const messageBox = $('#chatRoomMessage');
+    let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    let chatRoomId = getChatRoomId();
+    console.log(userInfo);
 
     // 1. 웹소켓 연결 설정
-    const socket = new WebSocket('ws://localhost:8080/ws/chat');
+    const socket = new WebSocket('ws://localhost:8080/ws/chat?chatRoomId='+chatRoomId);
 
     // 2. 이벤트 핸들러 설정
     socket.onopen = function(event) {
@@ -14,14 +17,37 @@ $(document).ready(function() {
         const messageBody = $('.chatroom-message');
         console.log(event);
         console.log(event.data);
+        let messageData = JSON.parse(event.data);
+        let messageUser = messageData.userInfo;
 
+        // 줄 바꿈 처리
+        let messageContent = messageData.message.replace(/\n/g, '<br>');
 
-//        $('#chatWindow').append('<div>' + event.data + '</div>');
+        if(messageUser.id !== userInfo.id) {
+            const otherMessage = `
+                <div class="user-container">
+                    <div class="other">
+                        <img src="/api/v1/friends/profile/${messageUser.profileImg}" alt="">
+                        <div class="box">
+                            <span class="nickname">${messageUser.nickname}</span>
+                            <div class="other-message-box">
+                                <div class="balloon">
+                                    <span class="comment">${messageContent}</span>
+                                </div>
+                                <span class="send-time">${getCurrentTime(messageData.sendTime)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messageBox.append(otherMessage);
+        }
     };
 
     socket.onclose = function(event) {
-        if (event.wasClean) {
-            console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+        console.log(event.reason);
+        if (event.reason === 'User not authenticated') {
+            location.href = '/login';
         } else {
             console.log('Connection died');
         }
@@ -31,22 +57,83 @@ $(document).ready(function() {
         console.log('WebSocket error: ', error);
     };
 
+
+    // 엔터 키 이벤트 감지
+    $('#chatMessage').keydown(function(event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+            event.preventDefault(); // 폼 전송 방지
+            // 버튼 클릭 이벤트 발생
+            sendMessage();
+        }else if(event.keyCode === 13 && event.shiftKey) {
+            // 기존 동작 그대로
+        }
+    });
     $('#sendMessageBtn').click(function() {
+        sendMessage();
+    });
+
+    function sendMessage() {
         let message = $('#chatMessage').val();
-        userId = 1;
-//        let sendMessage = JSON.stringify({userId, message});
+
         let sendMessage = JSON.stringify({
             'messageType': 'TALK',
-            'chatRoomId': '123-123-123',
-            'senderId': 1,
-            'message': message
+            'chatRoomId': chatRoomId,
+            'userInfo': userInfo,
+            'message': message,
+            'sendTime': new Date()
         });
+
+        let parseSendMessage = JSON.parse(sendMessage);
 
         // 메시지를 웹소켓을 통해 서버로 전송
         if(socket.readyState === WebSocket.OPEN) {
             socket.send(sendMessage);
             console.log('발송 성공');
+            console.log(parseSendMessage.message);
+            // 줄 바꿈 처리
+            let messageContent = parseSendMessage.message.replace(/\n/g, '<br>');
+
+            const myMessage = `
+                <div class="user-container">
+                    <div class="mine">
+                        <span class="send-time">${getCurrentTime(parseSendMessage.sendTime)}</span>
+                        <div class="balloon">
+                            <span class="comment">${messageContent}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            messageBox.append(myMessage);
+            $('#chatMessage').val('');
         }
-    });
+    }
+
+    function getChatRoomId() {
+        // 현재 URL을 가져오기
+        let currentUrl = window.location.href;
+
+        // URL 객체 생성
+        let url = new URL(currentUrl);
+
+        // pathname에서 pathVariable을 추출
+        let path = url.pathname;
+        // 경로를 '/'로 분리하여 배열로 변환
+        let pathParts = path.split('/');
+        // pathParts 배열에서 두 번째 요소를 아이디로 사용
+        return pathParts[2];
+    }
+
+    // 12시간 형식 (오전/오후)
+    function getCurrentTime(inputTime) {
+        const date = new Date(inputTime)
+        let hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? '오후' : '오전';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0을 12로 변환
+        const hoursStr = hours.toString().padStart(2, '0');
+        return `${ampm} ${hoursStr}:${minutes}`;
+    }
 
 });

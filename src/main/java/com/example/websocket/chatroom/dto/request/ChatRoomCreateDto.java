@@ -1,6 +1,6 @@
 package com.example.websocket.chatroom.dto.request;
 
-import com.example.websocket.chatroom.domain.Chatroom2;
+import com.example.websocket.chatroom.domain.ChatRoom2;
 import lombok.*;
 
 import java.util.List;
@@ -15,8 +15,8 @@ public class ChatRoomCreateDto {
     private String title;
     private List<Long> userIds;
 
-    public Chatroom2 toChatRoomEntity() {
-        return Chatroom2.builder()
+    public ChatRoom2 toChatRoomEntity() {
+        return ChatRoom2.builder()
                 .title(this.title)
                 .build();
     }

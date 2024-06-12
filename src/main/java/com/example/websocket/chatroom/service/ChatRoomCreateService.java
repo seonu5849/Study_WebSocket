@@ -1,7 +1,6 @@
 package com.example.websocket.chatroom.service;
 
-import com.example.websocket.chatroom.domain.ChatRoom;
-import com.example.websocket.chatroom.domain.Chatroom2;
+import com.example.websocket.chatroom.domain.ChatRoom2;
 import com.example.websocket.chatroom.domain.InviteChat;
 import com.example.websocket.chatroom.domain.InviteChatId;
 import com.example.websocket.chatroom.dto.request.ChatRoomCreateDto;
@@ -11,16 +10,12 @@ import com.example.websocket.user.domain.User;
 import com.example.websocket.user.exception.ErrorStatus;
 import com.example.websocket.user.exception.UserException;
 import com.example.websocket.user.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -39,7 +34,7 @@ public class ChatRoomCreateService {
         chatRoomCreateDto.getUserIds().add(userId);
         List<User> users = findById(chatRoomCreateDto);
 
-        Chatroom2 savedChatRoom = chatRoomRepository.save(chatRoomCreateDto.toChatRoomEntity());
+        ChatRoom2 savedChatRoom = chatRoomRepository.save(chatRoomCreateDto.toChatRoomEntity());
 
         users.forEach(user -> {
             InviteChatId inviteChatId = new InviteChatId(user.getId(), savedChatRoom.getId());
