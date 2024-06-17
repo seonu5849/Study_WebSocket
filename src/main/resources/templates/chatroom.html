@@ -22,7 +22,7 @@
                     <div th:if="${message.mine}" class="mine">
                         <span class="send-time" th:text="${message.sendTime}">오후 9:20</span>
                         <div class="balloon">
-                            <span class="comment" th:text="${message.comment}">내용</span>
+                            <span class="comment" th:utext="${message.formattedComment}">내용</span>
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                             <span class="nickname" th:text="${message.nickname}">닉네임</span>
                             <div class="other-message-box">
                                 <div class="balloon">
-                                    <span class="comment" th:text="${message.comment}">내용</span>
+                                    <span class="comment" th:utext="${message.formattedComment}">내용</span>
                                 </div>
                                 <span class="send-time" th:text="${message.sendTime}">오후 9:19</span>
                             </div>

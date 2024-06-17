@@ -41,4 +41,10 @@ public class ChatMessageDto {
     public void formatLastCommentDate(String dateString) {
         this.sendTime = TimeFormatUtils.formatTime(dateString);
     }
+
+    // 줄바꿈 문자를 <br>로 바꿔주는 메소드
+    public String getFormattedComment() {
+        return this.comment != null ? this.comment.replace("\n", "<br>") : null;
+    }
+
 }
