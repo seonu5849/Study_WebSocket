@@ -8,17 +8,37 @@
 </head>
 <body>
     <section>
-        <div class="main">
+        <div class="main" th:object="${chatroom}">
             <div class="menu-box">
                 <div class="chatroom-top">
-                    <h3 class="chatroom-title">채팅방 이름</h3>
+                    <h3 class="chatroom-title" th:text="*{title}">채팅방 이름</h3>
                     <button type="button" class="close-btn" id="chatroomCloseBtn">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
-            <div class="chatroom-message" id="chatRoomMessage">
+            <div  class="chatroom-message" id="chatRoomMessage">
+                <div th:each="message : *{messages}" class="user-container">
+                    <div th:if="${message.mine}" class="mine">
+                        <span class="send-time" th:text="${message.sendTime}">오후 9:20</span>
+                        <div class="balloon">
+                            <span class="comment" th:text="${message.comment}">내용</span>
+                        </div>
+                    </div>
 
+                    <div th:unless="${message.mine}" class="other">
+                        <img th:src="|/api/v1/friends/profile/${message.profileImg}|" alt="">
+                        <div class="box">
+                            <span class="nickname" th:text="${message.nickname}">닉네임</span>
+                            <div class="other-message-box">
+                                <div class="balloon">
+                                    <span class="comment" th:text="${message.comment}">내용</span>
+                                </div>
+                                <span class="send-time" th:text="${message.sendTime}">오후 9:19</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="input-box">
                 <textarea name="message" id="chatMessage"></textarea>

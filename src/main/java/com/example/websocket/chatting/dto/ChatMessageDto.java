@@ -1,6 +1,5 @@
 package com.example.websocket.chatting.dto;
 
-import com.example.websocket.config.utils.KoreaTimeFormatUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

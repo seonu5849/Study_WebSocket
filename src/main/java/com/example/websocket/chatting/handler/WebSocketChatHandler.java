@@ -7,7 +7,7 @@ import com.example.websocket.chatroom.repository.ChatRoomRepository;
 import com.example.websocket.chatting.dto.ChatMessageDto;
 import com.example.websocket.chatting.service.ChatSaveService;
 import com.example.websocket.config.security.domain.PrincipalDetail;
-import com.example.websocket.config.utils.KoreaTimeFormatUtil;
+import com.example.websocket.config.utils.TimeFormatUtils;
 import com.example.websocket.user.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -95,7 +95,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
         // payload -> chatMessageDto로 변환
         ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
-        chatMessageDto.setSendTime(KoreaTimeFormatUtil.koreaTimeFormat(chatMessageDto.getSendTime()));
+        chatMessageDto.setSendTime(TimeFormatUtils.koreaTimeFormat(chatMessageDto.getSendTime()));
         // 유저 아이디 추출
 //        Long userId = extractUserId(session);
         log.info("chatMessageDto: {}", chatMessageDto);

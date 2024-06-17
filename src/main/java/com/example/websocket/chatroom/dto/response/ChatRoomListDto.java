@@ -1,5 +1,6 @@
 package com.example.websocket.chatroom.dto.response;
 
+import com.example.websocket.config.utils.TimeFormatUtils;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -28,12 +29,6 @@ public class ChatRoomListDto {
     }
 
     public void formatLastCommentDate(String dateString) {
-        this.lastCommentDate = formatTime(dateString);
-    }
-
-    private String formatTime(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
-        return dateTime.format(DateTimeFormatter.ofPattern("a hh:mm"));
+        this.lastCommentDate = TimeFormatUtils.formatTime(dateString);
     }
 }
