@@ -1,19 +1,19 @@
 package com.example.websocket.chatting.handler;
 
-import com.example.websocket.chatroom.domain.ChatRoom2;
+import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.chatroom.exception.ChatRoomException;
 import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
 import com.example.websocket.chatting.dto.ChatMessageDto;
+import com.example.websocket.chatting.service.ChatSaveService;
 import com.example.websocket.config.security.domain.PrincipalDetail;
+import com.example.websocket.config.utils.KoreaTimeFormatUtil;
 import com.example.websocket.user.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -22,7 +22,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.net.URI;
-import java.security.Principal;
 import java.util.*;
 
 /**
@@ -42,6 +41,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     private Set<WebSocketSession> sessions;
     private final Map<Long, Set<WebSocketSession>> chatRoomMap = new HashMap<>();
     private final ChatRoomRepository chatRoomRepository;
+    private final ChatSaveService chatSaveService;
 
     // chatRoomId : {session1, session2}
 //    private final Map<Long, Set<WebSocketSession>> chatRoomSessionMap = new HashMap<>(); // 채팅방
@@ -58,7 +58,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         Long chatRoomId = extractChatRoomIdFromQueryString(queryString);
         // 메모리 상에 채팅방에 대한 세션이 없으면 만들어줌
         // 채팅메시지를 보낼 채팅방을 찾고 해당 채팅방에 속한 세션들에게 메시지를 전송
-        ChatRoom2 chatRoom = chatRoomRepository.findById(chatRoomId)
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
         // Map 컬렉션에 채팅방 아이디와 채팅방의 세션을 저장하고,
@@ -95,14 +95,14 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
         // payload -> chatMessageDto로 변환
         ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
-
+        chatMessageDto.setSendTime(KoreaTimeFormatUtil.koreaTimeFormat(chatMessageDto.getSendTime()));
         // 유저 아이디 추출
 //        Long userId = extractUserId(session);
         log.info("chatMessageDto: {}", chatMessageDto);
         Long chatRoomId = chatMessageDto.getChatRoomId();
         // 메모리 상에 채팅방에 대한 세션이 없으면 만들어줌
         // 채팅메시지를 보낼 채팅방을 찾고 해당 채팅방에 속한 세션들에게 메시지를 전송
-        ChatRoom2 chatRoom = chatRoomRepository.findById(chatRoomId)
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
         // 만약 채팅방에 참여한 인원이 3명 이상일 경우 실행.
@@ -111,6 +111,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
             removeClosedSession(this.sessions);
         }
 
+        chatSaveService.saveChatting(chatMessageDto); // db에 저장하고 메시지 젼송
         sendMessageToChatRoom(chatMessageDto, this.sessions);
     }
 

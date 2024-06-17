@@ -1,11 +1,10 @@
 package com.example.websocket.chatting.dto;
 
-import com.example.websocket.config.utils.DateUtils;
-import lombok.*;
-
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import com.example.websocket.config.utils.KoreaTimeFormatUtil;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @ToString
 @Getter
@@ -20,6 +19,7 @@ public class ChatMessageDto {
     private Long chatRoomId; // 방 번호
     private UserInfo userInfo; // 채팅을 보낸 사람의 정보
     private String message; // 메시지
+    @Setter
     private String sendTime; // 보낸 시간
 
     public ChatMessageDto(MessageType messageType, Long chatRoomId, UserInfo userInfo, String message, String sendTime) {
@@ -29,6 +29,7 @@ public class ChatMessageDto {
         this.message = message;
         this.sendTime = sendTime;
     }
+
 
     @ToString
     @Getter

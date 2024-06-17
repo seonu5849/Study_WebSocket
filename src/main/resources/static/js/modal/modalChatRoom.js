@@ -160,7 +160,7 @@ $(document).ready(function() {
                 console.log(result);
                 if(result) {
 //                    $('#addRoomModal').css('display', 'none');
-                    location.href = "/chatrooms/list";
+                    location.href = "/chatrooms/"+result;
                 }
             },
             error: function(request, status, error) {

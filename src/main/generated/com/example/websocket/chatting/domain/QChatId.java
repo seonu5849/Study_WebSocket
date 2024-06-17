@@ -21,7 +21,7 @@ public class QChatId extends BeanPath<ChatId> {
 
     public final NumberPath<Long> chatId = createNumber("chatId", Long.class);
 
-    public final NumberPath<Long> chatroomId = createNumber("chatroomId", Long.class);
+    public final NumberPath<Long> chatRoomId = createNumber("chatRoomId", Long.class);
 
     public QChatId(String variable) {
         super(ChatId.class, forVariable(variable));

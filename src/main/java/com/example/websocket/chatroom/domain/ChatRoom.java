@@ -1,25 +1,30 @@
 package com.example.websocket.chatroom.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.websocket.config.domain.BaseTimeEntity;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@ToString
 @Getter
-@NoArgsConstructor
-public class ChatRoom {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+@Table(name = "CHATROOM")
+public class ChatRoom extends BaseTimeEntity {
 
-    private String roomId; // 채팅방 고유번호
-    private String name; // 채팅방 이름
+    @Id
+    @GeneratedValue
+    @Column(name = "CHATROOM_ID")
+    private Long id;
+    private String title;
+    private String profileImg;
+
+    @Builder.Default // 빌더에 포함되지 않도록 설정
+    @Transient // 컬럼으로 매핑하지 않도록 설정
     private Set<WebSocketSession> sessions = new HashSet<>(); // 채팅방에 참가 중인 유저들의 세션 아이디
-
-    @Builder
-    public ChatRoom(String roomId, String name) {
-        this.roomId = roomId;
-        this.name = name;
-    }
-
 }

@@ -1,6 +1,5 @@
 package com.example.websocket.chatroom.controller;
 
-import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.chatroom.dto.request.ChatRoomCreateDto;
 import com.example.websocket.chatroom.service.ChatRoomCreateService;
 import com.example.websocket.config.security.domain.PrincipalDetail;

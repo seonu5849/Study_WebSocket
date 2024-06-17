@@ -84,6 +84,7 @@ $(document).ready(function() {
         });
 
         let parseSendMessage = JSON.parse(sendMessage);
+        console.log(parseSendMessage);
 
         // 메시지를 웹소켓을 통해 서버로 전송
         if(socket.readyState === WebSocket.OPEN) {

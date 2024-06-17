@@ -1,17 +1,17 @@
 package com.example.websocket.chatting.domain;
 
-import com.example.websocket.chatroom.domain.ChatRoom2;
+import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.config.domain.BaseTimeEntity;
 import com.example.websocket.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Chatting extends BaseTimeEntity {
+public class Chat {
 
     /**
      * 복합키 매핑이면서 외래키를 기본키로 사용해야 하는 경우
@@ -20,12 +20,12 @@ public class Chatting extends BaseTimeEntity {
      */
 
     @EmbeddedId
-    private ChatId chatId;
+    private ChatId id;
 
-    @MapsId("chatroomId")
+    @MapsId("chatRoomId")
     @ManyToOne
     @JoinColumn(name = "CHATROOM_ID")
-    private ChatRoom2 chatroom2;
+    private ChatRoom chatroom;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -34,6 +34,18 @@ public class Chatting extends BaseTimeEntity {
     private String comment;
 
     @Column(name = "MESSAGE_CONFIRM")
-    private boolean isChecked;
+    private boolean isChecked; // 확인 했는지 안했는지
+
+    private String createDate;
+
+    @Builder
+    public Chat(ChatId id, ChatRoom chatroom, User user, String comment, boolean isChecked, String createDate) {
+        this.id = id;
+        this.chatroom = chatroom;
+        this.user = user;
+        this.comment = comment;
+        this.isChecked = isChecked;
+        this.createDate = createDate;
+    }
 
 }

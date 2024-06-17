@@ -22,7 +22,7 @@ public class QInviteChat extends EntityPathBase<InviteChat> {
 
     public static final QInviteChat inviteChat = new QInviteChat("inviteChat");
 
-    public final QChatRoom2 chatroom;
+    public final QChatRoom chatroom;
 
     public final QInviteChatId inviteChatId;
 
@@ -46,7 +46,7 @@ public class QInviteChat extends EntityPathBase<InviteChat> {
 
     public QInviteChat(Class<? extends InviteChat> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.chatroom = inits.isInitialized("chatroom") ? new QChatRoom2(forProperty("chatroom")) : null;
+        this.chatroom = inits.isInitialized("chatroom") ? new QChatRoom(forProperty("chatroom")) : null;
         this.inviteChatId = inits.isInitialized("inviteChatId") ? new QInviteChatId(forProperty("inviteChatId")) : null;
         this.user = inits.isInitialized("user") ? new com.example.websocket.user.domain.QUser(forProperty("user")) : null;
     }

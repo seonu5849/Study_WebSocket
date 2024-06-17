@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QChatRoom2 is a Querydsl query type for ChatRoom2
+ * QChatRoom is a Querydsl query type for ChatRoom
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QChatRoom2 extends EntityPathBase<ChatRoom2> {
+public class QChatRoom extends EntityPathBase<ChatRoom> {
 
-    private static final long serialVersionUID = 1237410552L;
+    private static final long serialVersionUID = -1899746182L;
 
-    public static final QChatRoom2 chatRoom2 = new QChatRoom2("chatRoom2");
+    public static final QChatRoom chatRoom = new QChatRoom("chatRoom");
 
     public final com.example.websocket.config.domain.QBaseTimeEntity _super = new com.example.websocket.config.domain.QBaseTimeEntity(this);
 
@@ -33,16 +33,16 @@ public class QChatRoom2 extends EntityPathBase<ChatRoom2> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
 
-    public QChatRoom2(String variable) {
-        super(ChatRoom2.class, forVariable(variable));
+    public QChatRoom(String variable) {
+        super(ChatRoom.class, forVariable(variable));
     }
 
-    public QChatRoom2(Path<? extends ChatRoom2> path) {
+    public QChatRoom(Path<? extends ChatRoom> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QChatRoom2(PathMetadata metadata) {
-        super(ChatRoom2.class, metadata);
+    public QChatRoom(PathMetadata metadata) {
+        super(ChatRoom.class, metadata);
     }
 
 }

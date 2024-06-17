@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ChatId implements Serializable {
 
     private Long chatId;
-    private Long chatroomId;
+    private Long chatRoomId;
 
     // hashCode and equals 메서드 구현
     @Override
@@ -26,12 +26,12 @@ public class ChatId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         ChatId that = (ChatId) o;
         return Objects.equals(chatId, that.chatId) &&
-                Objects.equals(chatroomId, that.chatroomId);
+                Objects.equals(chatRoomId, that.chatRoomId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chatId, chatroomId);
+        return Objects.hash(chatId, chatRoomId);
     }
 
 }
