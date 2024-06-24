@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -25,6 +26,8 @@ public class QChatRoom extends EntityPathBase<ChatRoom> {
     public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final ListPath<InviteChat, QInviteChat> inviteChatList = this.<InviteChat, QInviteChat>createList("inviteChatList", InviteChat.class, QInviteChat.class, PathInits.DIRECT2);
 
     public final StringPath profileImg = createString("profileImg");
 

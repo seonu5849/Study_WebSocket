@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-inner.css}">
+    <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-member-modal.css}">
 </head>
 <body>
     <section>
         <div class="main" th:object="${chatroom}">
             <div class="menu-box">
                 <div class="chatroom-top">
-                    <h3 class="chatroom-title" th:text="*{title}">채팅방 이름</h3>
-                    <button type="button" class="close-btn" id="chatroomCloseBtn">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <div class="toolbar">
+                        <button type="button" class="back-btn" id="chatroomBackBtn">
+                            <i class="fa-solid fa-chevron-left" style="color: #000000;"></i>
+                        </button>
+                        <div class="title-content">
+                            <h3 class="chatroom-title" th:text="*{title}">채팅방 이름</h3>
+                            <button type="button" class="member-info-btn" id="memberInfoBtn">
+                                <i class="fa-solid fa-user" style="color: #6b6b6b;"></i>
+                                <span class="member-count" th:text="*{memberCount}">10</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div  class="chatroom-message" id="chatRoomMessage">
@@ -47,6 +56,11 @@
         </div>
     </section>
 
+    <div>
+        <div th:replace="~{/modal/chatroom-member-modal :: chatroom-member-modal}"></div>
+    </div>
+
     <script type="text/javascript" th:src="@{/js/chatroom/chatroomMessage.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chatroom/chatroomMember.js}"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.chatroom.exception.ChatRoomException;
 import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
-import com.example.websocket.chatting.dto.ChatMessageDto;
+import com.example.websocket.chatting.dto.request.ChatMessageDto;
 import com.example.websocket.chatting.service.ChatSaveService;
 import com.example.websocket.config.security.domain.PrincipalDetail;
 import com.example.websocket.config.utils.TimeFormatUtils;

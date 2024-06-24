@@ -6,7 +6,7 @@ import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
 import com.example.websocket.chatting.domain.Chat;
 import com.example.websocket.chatting.domain.ChatId;
-import com.example.websocket.chatting.dto.ChatMessageDto;
+import com.example.websocket.chatting.dto.request.ChatMessageDto;
 import com.example.websocket.chatting.repository.ChatRepository;
 import com.example.websocket.user.domain.User;
 import com.example.websocket.user.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.websocket.chatting.dto;
+package com.example.websocket.chatting.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

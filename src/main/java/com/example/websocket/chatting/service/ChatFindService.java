@@ -28,7 +28,7 @@ public class ChatFindService {
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
         List<ChatMessageDto> chatMessageDtoList = chatQueryRepository.findChatRoomWithMessage(chatRoomId);
-
+        log.info("chatRoom: {}",chatRoom.getInviteChatList());
         for(ChatMessageDto chatMessage : chatMessageDtoList) {
             chatMessage.updateMessageOwner(userId);
             chatMessage.formatLastCommentDate(chatMessage.getSendTime());
@@ -37,6 +37,7 @@ public class ChatFindService {
 
         return ChatRoomDto.builder()
                 .title(chatRoom.getTitle())
+                .memberCount(chatRoom.getInviteChatList().size())
                 .messages(chatMessageDtoList)
                 .build();
     }

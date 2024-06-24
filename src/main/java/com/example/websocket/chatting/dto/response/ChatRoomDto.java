@@ -12,11 +12,13 @@ import java.util.List;
 public class ChatRoomDto {
 
     private String title;
+    private Integer memberCount;
     private List<ChatMessageDto> messages;
 
     @Builder
-    public ChatRoomDto(String title, List<ChatMessageDto> messages) {
+    public ChatRoomDto(String title, Integer memberCount, List<ChatMessageDto> messages) {
         this.title = title;
+        this.memberCount = memberCount;
         this.messages = messages;
     }
 }

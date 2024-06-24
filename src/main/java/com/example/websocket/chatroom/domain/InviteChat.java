@@ -4,6 +4,7 @@ import com.example.websocket.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+@ToString
 @Getter
 @Builder
 @AllArgsConstructor

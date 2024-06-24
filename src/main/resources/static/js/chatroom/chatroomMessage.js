@@ -3,6 +3,11 @@ $(document).ready(function() {
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let chatRoomId = getChatRoomId();
     console.log(userInfo);
+    scrollToBotton(); // 채팅방 입장시 스크롤을 맨 아래로
+
+    $('#chatroomBackBtn').click(function(){
+        location.href = "/chatrooms/list";
+    });
 
     // 1. 웹소켓 연결 설정
     const socket = new WebSocket('ws://localhost:8080/ws/chat?chatRoomId='+chatRoomId);
@@ -41,6 +46,7 @@ $(document).ready(function() {
                 </div>
             `;
             messageBox.append(otherMessage);
+            scrollToBotton(); // 채팅메시지가 오면 스크롤을 맨 아래로
         }
     };
 
@@ -107,6 +113,7 @@ $(document).ready(function() {
 
             messageBox.append(myMessage);
             $('#chatMessage').val('');
+            scrollToBotton(); // 채팅메시지를 발송하면 스크롤을 맨 아래로
         }
     }
 
@@ -137,4 +144,10 @@ $(document).ready(function() {
         return `${ampm} ${hoursStr}:${minutes}`;
     }
 
+    // 스크롤을 맨 밑으로 보내는 함수
+    function scrollToBotton() {
+        const chatContainer = $('.chatroom-message');
+        let messageHeight = chatContainer.prop('scrollHeight') - chatContainer.prop('clientHeight');
+        chatContainer.scrollTop(messageHeight);
+    }
 });
