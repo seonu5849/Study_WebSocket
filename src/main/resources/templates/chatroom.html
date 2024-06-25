@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-inner.css}">
+    <link rel="stylesheet" th:href="@{/css/modal/modal.css}">
     <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-member-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/profile/profile-view-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/profile/profile-edit-modal.css}">
 </head>
 <body>
     <section>
@@ -36,7 +39,8 @@
                     </div>
 
                     <div th:unless="${message.mine}" class="other">
-                        <img th:src="|/api/v1/friends/profile/${message.profileImg}|" alt="">
+                        <input type="hidden" id="userId" th:value="${message.userId}"/>
+                        <img th:src="|/api/v1/friends/profile/${message.profileImg}|" alt="" id="profileImg">
                         <div class="box">
                             <span class="nickname" th:text="${message.nickname}">닉네임</span>
                             <div class="other-message-box">
@@ -58,9 +62,13 @@
 
     <div>
         <div th:replace="~{/modal/chatroom-member-modal :: chatroom-member-modal}"></div>
+        <div th:replace="~{/modal/profile-view-modal :: profile-view-modal}"></div>
+        <div th:replace="~{/modal/profile-view-modal :: profile-edit-modal}"></div>
     </div>
 
     <script type="text/javascript" th:src="@{/js/chatroom/chatroomMessage.js}"></script>
     <script type="text/javascript" th:src="@{/js/chatroom/chatroomMember.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile/profileView.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile/profileEdit.js}"></script>
 </body>
 </html>

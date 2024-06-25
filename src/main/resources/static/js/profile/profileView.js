@@ -10,9 +10,9 @@ $(document).ready(function() {
         const user = $(this).find('.user');
         const userId = user.find('.friend-id').val();
 
-        clickUserProfile(userId);
+        jQuery.clickUserProfile(userId);
     });
-    function clickUserProfile(userId) {
+    jQuery.clickUserProfile = function(userId) {
         const profileView = $('#profile-view-modal');
         const editBox = profileView.find('.edit-box');
 

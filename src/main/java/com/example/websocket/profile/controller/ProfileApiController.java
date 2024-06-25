@@ -28,7 +28,7 @@ public class ProfileApiController {
     public ResponseEntity<ProfileViewDto> profileView(@AuthenticationPrincipal PrincipalDetail principalDetail,
                                                       @PathVariable Long userId) {
 
-        ProfileViewDto profileViewDto = profileViewService.profileView(principalDetail.getUser().getId(), userId);
+        ProfileViewDto profileViewDto = profileViewService.profileView(principalDetail.getUser(), userId);
 
         return ResponseEntity.ok(profileViewDto);
     }
@@ -40,7 +40,7 @@ public class ProfileApiController {
                                               @RequestPart("request") ProfileEditDto profileEditDto,
                                               @RequestPart("profileImg") MultipartFile profileImg) {
         log.debug("profileEdit({}, {}, {}) invoked.", userId, profileEditDto, profileImg);
-        if(!(principalDetail.getUser().getId().equals(userId))){
+        if(!(principalDetail.getUser().isMine(userId))){
             log.info("서로 다릅니다.");
         }
 

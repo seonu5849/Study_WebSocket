@@ -33,4 +33,8 @@ public class User extends BaseTimeEntity {
         this.statusMessage = statusMessage;
         this.profileImg = profileImg;
     }
+
+    public boolean isMine(Long id) {
+        return id.equals(this.id);
+    }
 }

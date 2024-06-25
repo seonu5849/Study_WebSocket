@@ -18,17 +18,17 @@ public class ProfileViewService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public ProfileViewDto profileView(Long myId, Long userId) {
-        User user = userRepository.findById(userId)
+    public ProfileViewDto profileView(User user, Long userId) {
+        User findUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(ErrorStatus.USER_NOT_FOUND));
 
         return ProfileViewDto.builder()
-                .userId(user.getId())
-                .nickname(user.getNickname())
-                .profileUrl(user.getProfileImg())
-                .backgroundUrl(user.getBackgroundImg())
-                .statusMessage(user.getStatusMessage())
-                .isMine(myId.equals(user.getId()))
+                .userId(findUser.getId())
+                .nickname(findUser.getNickname())
+                .profileUrl(findUser.getProfileImg())
+                .backgroundUrl(findUser.getBackgroundImg())
+                .statusMessage(findUser.getStatusMessage())
+                .isMine(user.isMine(userId))
                 .build();
     }
 

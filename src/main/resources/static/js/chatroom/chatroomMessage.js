@@ -32,7 +32,7 @@ $(document).ready(function() {
             const otherMessage = `
                 <div class="user-container">
                     <div class="other">
-                        <img src="/api/v1/friends/profile/${messageUser.profileImg}" alt="">
+                        <img src="/api/v1/friends/profile/${messageUser.profileImg}" alt=""  id="profileImg">
                         <div class="box">
                             <span class="nickname">${messageUser.nickname}</span>
                             <div class="other-message-box">
@@ -116,6 +116,11 @@ $(document).ready(function() {
             scrollToBotton(); // 채팅메시지를 발송하면 스크롤을 맨 아래로
         }
     }
+
+    $(document).on('click', '.other #profileImg', function() {
+        let userId = $(this).siblings('#userId').val(); // siblings = 형제 요소 중에서 찾기
+        jQuery.clickUserProfile(userId);
+    });
 
     function getChatRoomId() {
         // 현재 URL을 가져오기

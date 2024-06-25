@@ -2,6 +2,7 @@ section {
     width: 380px;
     height: 600px;
     background-color: bisque;
+    position: relative;
 }
 
 .container {
