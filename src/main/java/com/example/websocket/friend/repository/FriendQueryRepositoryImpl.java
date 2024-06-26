@@ -1,8 +1,11 @@
 package com.example.websocket.friend.repository;
 
+import com.example.websocket.chatroom.domain.QInviteChat;
 import com.example.websocket.friend.domain.QFriend;
+import com.example.websocket.friend.dto.response.UserInfo;
 import com.example.websocket.user.domain.QUser;
 import com.example.websocket.user.domain.User;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

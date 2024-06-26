@@ -1,5 +1,6 @@
 package com.example.websocket.chatting.dto.request;
 
+import com.example.websocket.chatting.domain.MessageType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +10,6 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 public class ChatMessageDto {
-
-    public enum MessageType{
-        ENTER, TALK
-    }
 
     private MessageType messageType; // 메시지 타입
     private Long chatRoomId; // 방 번호

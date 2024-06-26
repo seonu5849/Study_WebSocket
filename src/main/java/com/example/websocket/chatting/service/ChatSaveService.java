@@ -6,6 +6,7 @@ import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
 import com.example.websocket.chatting.domain.Chat;
 import com.example.websocket.chatting.domain.ChatId;
+import com.example.websocket.chatting.domain.MessageType;
 import com.example.websocket.chatting.dto.request.ChatMessageDto;
 import com.example.websocket.chatting.repository.ChatRepository;
 import com.example.websocket.user.domain.User;
@@ -21,7 +22,7 @@ import java.beans.Transient;
 @Service
 public class ChatSaveService {
 
-    private final ChatRepository chattingRepository;
+    private final ChatRepository chatRepository;
     private final UserRepository userRepository;
     private final ChatRoomRepository chatRoomRepository;
 
@@ -33,7 +34,7 @@ public class ChatSaveService {
         ChatRoom chatRoom = chatRoomRepository.findById(chatMessageDto.getChatRoomId())
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
-        Long maxChatId = chattingRepository.findMaxChatIdByChatRoomId(chatRoom.getId());
+        Long maxChatId = chatRepository.findMaxChatIdByChatRoomId(chatRoom.getId());
 
         Chat chatting = Chat.builder()
                 .id(new ChatId(maxChatId + 1, chatRoom.getId()))
@@ -41,8 +42,9 @@ public class ChatSaveService {
                 .user(user)
                 .comment(chatMessageDto.getMessage())
                 .createDate(chatMessageDto.getSendTime())
+                .messageType(chatMessageDto.getMessageType())
                 .build();
-        chattingRepository.save(chatting);
+        chatRepository.save(chatting);
     }
 
 }

@@ -38,14 +38,18 @@ public class Chat {
 
     private String createDate;
 
+    @Enumerated(EnumType.STRING)
+    private MessageType messageType;
+
     @Builder
-    public Chat(ChatId id, ChatRoom chatroom, User user, String comment, boolean isChecked, String createDate) {
+    public Chat(ChatId id, ChatRoom chatroom, User user, String comment, boolean isChecked, String createDate, MessageType messageType) {
         this.id = id;
         this.chatroom = chatroom;
         this.user = user;
         this.comment = comment;
         this.isChecked = isChecked;
         this.createDate = createDate;
+        this.messageType = messageType;
     }
 
 }

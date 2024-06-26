@@ -1,5 +1,6 @@
 package com.example.websocket.friend.repository;
 
+import com.example.websocket.friend.dto.response.UserInfo;
 import com.example.websocket.user.domain.User;
 import org.springframework.data.domain.Slice;
 

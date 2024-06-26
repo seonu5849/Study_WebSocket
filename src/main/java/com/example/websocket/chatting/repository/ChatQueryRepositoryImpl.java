@@ -1,14 +1,11 @@
 package com.example.websocket.chatting.repository;
 
-import com.example.websocket.chatroom.domain.QChatRoom;
 import com.example.websocket.chatting.domain.QChat;
 import com.example.websocket.chatting.dto.response.ChatMessageDto;
 import com.example.websocket.user.domain.QUser;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,9 +29,10 @@ public class ChatQueryRepositoryImpl implements ChatQueryRepository {
                         user.nickname,
                         user.profileImg,
                         chat.comment,
-                        chat.createDate))
+                        chat.createDate,
+                        chat.messageType))
                 .from(chat)
-                .join(user).on(chat.user.id.eq(user.id))
+                .leftJoin(user).on(chat.user.id.eq(user.id))
                 .where(chat.chatroom.id.eq(chatRoomId))
                 .orderBy(chat.createDate.asc())
                 .fetch();

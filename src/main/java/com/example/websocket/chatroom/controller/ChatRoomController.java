@@ -27,6 +27,7 @@ public class ChatRoomController {
         }
         List<ChatRoomListDto> chatRoomListDtos = chatRoomListService.chatRoomListView(principalDetail.getUser().getId());
         model.addAttribute("chatrooms", chatRoomListDtos);
+
         return "chatroom-list";
     }
 

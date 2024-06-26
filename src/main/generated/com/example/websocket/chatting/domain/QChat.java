@@ -32,6 +32,8 @@ public class QChat extends EntityPathBase<Chat> {
 
     public final BooleanPath isChecked = createBoolean("isChecked");
 
+    public final EnumPath<MessageType> messageType = createEnum("messageType", MessageType.class);
+
     public final com.example.websocket.user.domain.QUser user;
 
     public QChat(String variable) {

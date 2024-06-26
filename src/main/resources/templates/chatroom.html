@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-inner.css}">
     <link rel="stylesheet" th:href="@{/css/modal/modal.css}">
     <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-member-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/chatroom/chatroom-add-member-modal.css}">
     <link rel="stylesheet" th:href="@{/css/profile/profile-view-modal.css}">
     <link rel="stylesheet" th:href="@{/css/profile/profile-edit-modal.css}">
 </head>
@@ -31,23 +32,27 @@
             </div>
             <div  class="chatroom-message" id="chatRoomMessage">
                 <div th:each="message : *{messages}" class="user-container">
-                    <div th:if="${message.mine}" class="mine">
-                        <span class="send-time" th:text="${message.sendTime}">오후 9:20</span>
-                        <div class="balloon">
-                            <span class="comment" th:utext="${message.formattedComment}">내용</span>
-                        </div>
+                    <div th:if="${message.isMessageType == 'ENTER'}" class="enter-message">
+                        <span th:utext="${message.formattedComment}"></span>
                     </div>
-
-                    <div th:unless="${message.mine}" class="other">
-                        <input type="hidden" id="userId" th:value="${message.userId}"/>
-                        <img th:src="|/api/v1/friends/profile/${message.profileImg}|" alt="" id="profileImg">
-                        <div class="box">
-                            <span class="nickname" th:text="${message.nickname}">닉네임</span>
-                            <div class="other-message-box">
-                                <div class="balloon">
-                                    <span class="comment" th:utext="${message.formattedComment}">내용</span>
+                    <div th:if="${message.isMessageType != 'ENTER'}">
+                        <div th:if="${message.mine}" class="mine">
+                            <span class="send-time" th:text="${message.sendTime}">오후 9:20</span>
+                            <div class="balloon">
+                                <span class="comment" th:utext="${message.formattedComment}">내용</span>
+                            </div>
+                        </div>
+                        <div th:unless="${message.mine}" class="other">
+                            <input type="hidden" id="userId" th:value="${message.userId}"/>
+                            <img th:src="|/api/v1/friends/profile/${message.profileImg}|" alt="" id="profileImg">
+                            <div class="box">
+                                <span class="nickname" th:text="${message.nickname}">닉네임</span>
+                                <div class="other-message-box">
+                                    <div class="balloon">
+                                        <span class="comment" th:utext="${message.formattedComment}">내용</span>
+                                    </div>
+                                    <span class="send-time" th:text="${message.sendTime}">오후 9:19</span>
                                 </div>
-                                <span class="send-time" th:text="${message.sendTime}">오후 9:19</span>
                             </div>
                         </div>
                     </div>
@@ -62,12 +67,14 @@
 
     <div>
         <div th:replace="~{/modal/chatroom-member-modal :: chatroom-member-modal}"></div>
+        <div th:replace="~{/modal/chatroom-add-member-modal :: chatroom-add-member-modal}"></div>
         <div th:replace="~{/modal/profile-view-modal :: profile-view-modal}"></div>
         <div th:replace="~{/modal/profile-view-modal :: profile-edit-modal}"></div>
     </div>
 
     <script type="text/javascript" th:src="@{/js/chatroom/chatroomMessage.js}"></script>
     <script type="text/javascript" th:src="@{/js/chatroom/chatroomMember.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chatroom/chatroomAddMember.js}"></script>
     <script type="text/javascript" th:src="@{/js/profile/profileView.js}"></script>
     <script type="text/javascript" th:src="@{/js/profile/profileEdit.js}"></script>
 </body>

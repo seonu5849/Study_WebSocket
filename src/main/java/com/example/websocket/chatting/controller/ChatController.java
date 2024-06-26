@@ -27,6 +27,7 @@ public class ChatController {
 
         ChatRoomDto chatRoomDto = chatFindService.findChattingMessage(principalDetail.getUser().getId(), chatRoomId);
         model.addAttribute("chatroom", chatRoomDto);
+        log.info("chatRoomDto: {}", chatRoomDto);
 
         return "chatroom";
     }

@@ -30,6 +30,6 @@ public class ChatRoom extends BaseTimeEntity {
     private Set<WebSocketSession> sessions = new HashSet<>(); // 채팅방에 참가 중인 유저들의 세션 아이디
 
     @Builder.Default
-    @OneToMany(mappedBy = "chatroom")
+    @OneToMany(mappedBy = "chatroom", fetch = FetchType.LAZY)
     private List<InviteChat> inviteChatList = new ArrayList<>();
 }

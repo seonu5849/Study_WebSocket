@@ -2,13 +2,14 @@ $(document).ready(function() {
     const memberModal = $('#memberModal');
 
     $('#memberInfoBtn').click(function() {
-        let chatRoomId = getChatRoomId();
+        let chatRoomId = jQuery.getChatRoomId();
         $.ajax({
             type: 'get',
             url: `/api/v1/chatrooms/${chatRoomId}/members`,
             dataType: 'json',
             success: function(result) {
                 const userContainer = $('#memberModal .user-info');
+                userContainer.empty();
 
                 $.each(result, function(index, user) {
                     const userWrapper = $('<div>', {class: 'user-wrapper'});
@@ -39,19 +40,22 @@ $(document).ready(function() {
 
     $(document).on('click', '.user-profile', function() {
         let userId = $(this).siblings('#userId').val(); // siblings = 형제 요소 중에서 찾기
-        console.log(userId);
 
         jQuery.clickUserProfile(userId);
     });
 
+    $('#addFriendBtn').click(function() {
+        open($('#memberAddModal'));
+    });
+
     function open($object) {
-        $object.css('display', 'block');
+        $object.show();
     }
     function close($object) {
-        $object.css('display', 'none');
+        $object.hide();
     }
 
-    function getChatRoomId() {
+    jQuery.getChatRoomId = function()  {
         // 현재 URL을 가져오기
         let currentUrl = window.location.href;
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div th:fragment="chatroom-add-member-modal" class="member-add-modal" id="memberAddModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button">&times;</span>
+                <div class="input-box">
+                    <input type="text" placeholder="닉네임을 검색하세요." class="search-input">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="user-list">
+                    <span class="message">닉네임을 입력해주세요.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="invite-button" id="inviteBtn">초대</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
