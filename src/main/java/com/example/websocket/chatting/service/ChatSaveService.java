@@ -33,8 +33,15 @@ public class ChatSaveService {
 
         Long maxChatId = chatRepository.findMaxChatIdByChatRoomId(chatRoom.getId());
 
+        Chat chat = createChatEntity(request, maxChatId, chatRoom);
+        log.info("chat: {}", chat);
+        Chat saved = chatRepository.save(chat);
+        log.info("saved: {}", saved);
+        return ChatMessageResponse.of(saved);
+    }
 
-        Chat chatting = Chat.builder()
+    private Chat createChatEntity(ChatMessageRequest request, Long maxChatId, ChatRoom chatRoom) {
+        return Chat.builder()
                 .id(new ChatId(maxChatId + 1, chatRoom.getId()))
                 .chatroom(chatRoom)
                 .user(getUser(request))
@@ -42,8 +49,6 @@ public class ChatSaveService {
                 .createDate(request.getSendTime())
                 .messageType(request.getMessageType())
                 .build();
-        Chat saved = chatRepository.save(chatting);
-        return ChatMessageResponse.of(saved);
     }
 
     private User getUser(ChatMessageRequest chatMessageDto) {
@@ -52,7 +57,6 @@ public class ChatSaveService {
     }
 
     private ChatRoom getChatRoom(ChatMessageRequest chatMessageDto) {
-        log.info("chatMessageDto : {}", chatMessageDto.getChatRoomId());
         return chatRoomRepository.findById(chatMessageDto.getChatRoomId())
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
     }

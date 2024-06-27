@@ -35,9 +35,7 @@ import static org.mockito.Mockito.when;
 
 //@Transactional
 // @SpringBootTest 어노테이션은 통합 테스트를 할 때 보통 사용, 이 어노테이션을 사용하면 모든 빈을 호출하기 때문에 시간이 오래 걸린다. (매개변수로 몇개 지정하면 몇개만 빈으로 가져옴)
-@DataJpaTest
-@ExtendWith({SpringExtension.class, MockitoExtension.class}) // 단위(유닛)테스트를 위한 어노테이션, @SpringBootTest 내에 있는 것.
-@Import(ChatSaveService.class) // 테스트하고자 하는 클래스를 매개변수로 주입
+@ExtendWith(MockitoExtension.class) // 단위(유닛)테스트를 위한 어노테이션, @SpringBootTest 내에 있는 것.
 class ChatSaveServiceTest {
 
     // @MockBean : 의존성 주입받을 객체들을 가짜 객체로 생성해서 주입
@@ -71,6 +69,10 @@ class ChatSaveServiceTest {
                 .willReturn(Optional.of(user));
         given(chatRoomRepository.findById(1L))
                 .willReturn(Optional.of(chatRoom));
+
+        // 메소드 내의 chat을 저장할 때 전달된 첫번째 인자를 반환
+        given(chatRepository.save(Mockito.any(Chat.class)))
+                .willAnswer(AdditionalAnswers.returnsFirstArg());
 
         ChatMessageRequest request =
                 new ChatMessageRequest(MessageType.TALK, 1L, new ChatMessageRequest.UserInfo(1L, "123", null), "테스트 메시지 입니다.", null);

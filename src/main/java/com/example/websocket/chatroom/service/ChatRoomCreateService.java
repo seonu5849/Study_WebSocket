@@ -35,6 +35,7 @@ public class ChatRoomCreateService {
         ChatRoom chatRoomEntity = createChatRoomEntity(chatRoomCreateDto);
         log.info("chatRoomCreateDto : {}", chatRoomCreateDto);
         ChatRoom savedChatRoom = saveChatRoom(chatRoomEntity);
+        log.info("savedChatRoom: {}", savedChatRoom);
         inviteUsersToChatRoom(savedChatRoom, chatRoomCreateDto.getUserIds());
 
         return savedChatRoom.getId();
