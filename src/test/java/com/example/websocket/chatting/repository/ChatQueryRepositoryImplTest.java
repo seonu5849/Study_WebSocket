@@ -2,19 +2,15 @@ package com.example.websocket.chatting.repository;
 
 import com.example.websocket.chatroom.domain.QChatRoom;
 import com.example.websocket.chatting.domain.QChat;
-import com.example.websocket.chatting.dto.response.ChatMessageDto;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 import com.example.websocket.user.domain.QUser;
-import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.InputStreamReader;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +32,7 @@ class ChatQueryRepositoryImplTest {
         QUser user = QUser.user;
 
         // when
-        List<ChatMessageDto> chatMessageDtoList = query.select(Projections.constructor(ChatMessageDto.class,
+        List<ChatMessageResponse> chatMessageDtoList = query.select(Projections.constructor(ChatMessageResponse.class,
                         user.id,
                         user.nickname,
                         user.profileImg,
@@ -48,7 +44,7 @@ class ChatQueryRepositoryImplTest {
                 .orderBy(chat.createDate.asc())
                 .fetch();
 
-        for(ChatMessageDto chatMessage : chatMessageDtoList) {
+        for(ChatMessageResponse chatMessage : chatMessageDtoList) {
             chatMessage.updateMessageOwner(chatMessage.getUserId());
         }
 

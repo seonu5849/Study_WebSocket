@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-public class ChatMessageDto {
+public class ChatMessageRequest {
 
     private MessageType messageType; // 메시지 타입
     private Long chatRoomId; // 방 번호
@@ -18,7 +18,7 @@ public class ChatMessageDto {
     @Setter
     private String sendTime; // 보낸 시간
 
-    public ChatMessageDto(MessageType messageType, Long chatRoomId, UserInfo userInfo, String message, String sendTime) {
+    public ChatMessageRequest(MessageType messageType, Long chatRoomId, UserInfo userInfo, String message, String sendTime) {
         this.messageType = messageType;
         this.chatRoomId = chatRoomId;
         this.userInfo = userInfo;

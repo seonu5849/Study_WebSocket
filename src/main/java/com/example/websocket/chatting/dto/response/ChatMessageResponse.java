@@ -1,13 +1,15 @@
 package com.example.websocket.chatting.dto.response;
 
+import com.example.websocket.chatting.domain.Chat;
 import com.example.websocket.chatting.domain.MessageType;
 import com.example.websocket.config.utils.TimeFormatUtils;
+import com.example.websocket.user.domain.User;
 import lombok.*;
 
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChatMessageDto {
+public class ChatMessageResponse {
 
     private Long userId;
     private String nickname;
@@ -18,7 +20,7 @@ public class ChatMessageDto {
     private MessageType messageType;
 
     @Builder
-    public ChatMessageDto(Long userId, String nickname, String profileImg, String comment, String sendTime, boolean isMine, MessageType messageType) {
+    public ChatMessageResponse(Long userId, String nickname, String profileImg, String comment, String sendTime, boolean isMine, MessageType messageType) {
         this.userId = userId;
         this.nickname = nickname;
         this.profileImg = profileImg;
@@ -29,13 +31,25 @@ public class ChatMessageDto {
     }
 
     // queryDsl mapping 생성자
-    public ChatMessageDto(Long userId, String nickname, String profileImg, String comment, String sendTime, MessageType messageType) {
+    public ChatMessageResponse(Long userId, String nickname, String profileImg, String comment, String sendTime, MessageType messageType) {
         this.userId = userId;
         this.nickname = nickname;
         this.profileImg = profileImg;
         this.comment = comment;
         this.sendTime = sendTime;
         this.messageType = messageType;
+    }
+
+    public static ChatMessageResponse of(Chat chat) {
+        User user = chat.getUser();
+        return ChatMessageResponse.builder()
+                .userId(chat.getId().getChatId())
+                .nickname(user.getNickname())
+                .profileImg(user.getProfileImg())
+                .comment(chat.getComment())
+                .sendTime(chat.getCreateDate())
+                .messageType(chat.getMessageType())
+                .build();
     }
 
     public void updateMessageOwner(Long userId) {

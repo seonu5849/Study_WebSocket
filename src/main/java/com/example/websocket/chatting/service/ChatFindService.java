@@ -4,7 +4,7 @@ import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.chatroom.exception.ChatRoomException;
 import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
-import com.example.websocket.chatting.dto.response.ChatMessageDto;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 import com.example.websocket.chatting.dto.response.ChatRoomDto;
 import com.example.websocket.chatting.repository.ChatQueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class ChatFindService {
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
-        List<ChatMessageDto> chatMessageDtoList = chatQueryRepository.findChatRoomWithMessage(chatRoomId);
+        List<ChatMessageResponse> chatMessageDtoList = chatQueryRepository.findChatRoomWithMessage(chatRoomId);
         log.info("chatRoom: {}",chatRoom.getInviteChatList());
-        for(ChatMessageDto chatMessage : chatMessageDtoList) {
+        for(ChatMessageResponse chatMessage : chatMessageDtoList) {
             chatMessage.updateMessageOwner(userId);
             chatMessage.formatLastCommentDate(chatMessage.getSendTime());
         }

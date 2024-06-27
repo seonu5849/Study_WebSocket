@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@ToString
 @Getter
 @Builder
 @AllArgsConstructor

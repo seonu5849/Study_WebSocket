@@ -6,8 +6,8 @@ import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
 import com.example.websocket.chatting.domain.Chat;
 import com.example.websocket.chatting.domain.ChatId;
-import com.example.websocket.chatting.domain.MessageType;
-import com.example.websocket.chatting.dto.request.ChatMessageDto;
+import com.example.websocket.chatting.dto.request.ChatMessageRequest;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 import com.example.websocket.chatting.repository.ChatRepository;
 import com.example.websocket.user.domain.User;
 import com.example.websocket.user.repository.UserRepository;
@@ -27,24 +27,34 @@ public class ChatSaveService {
     private final ChatRoomRepository chatRoomRepository;
 
     @Transient
-    public void saveChatting(ChatMessageDto chatMessageDto) {
-        log.debug("saveChatting: {}", chatMessageDto);
-        User user = userRepository.findById(chatMessageDto.getUserInfo().getId())
-                .orElseThrow(() -> new ChatRoomException(ErrorStatus.NO_ACTIVE_USER_FOUND));
-        ChatRoom chatRoom = chatRoomRepository.findById(chatMessageDto.getChatRoomId())
-                .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
+    public ChatMessageResponse saveChatting(ChatMessageRequest request) {
+        log.debug("saveChatting: {}", request);
+        ChatRoom chatRoom = getChatRoom(request);
 
         Long maxChatId = chatRepository.findMaxChatIdByChatRoomId(chatRoom.getId());
+
 
         Chat chatting = Chat.builder()
                 .id(new ChatId(maxChatId + 1, chatRoom.getId()))
                 .chatroom(chatRoom)
-                .user(user)
-                .comment(chatMessageDto.getMessage())
-                .createDate(chatMessageDto.getSendTime())
-                .messageType(chatMessageDto.getMessageType())
+                .user(getUser(request))
+                .comment(request.getMessage())
+                .createDate(request.getSendTime())
+                .messageType(request.getMessageType())
                 .build();
-        chatRepository.save(chatting);
+        Chat saved = chatRepository.save(chatting);
+        return ChatMessageResponse.of(saved);
+    }
+
+    private User getUser(ChatMessageRequest chatMessageDto) {
+        return userRepository.findById(chatMessageDto.getUserInfo().getId())
+                .orElseThrow(() -> new ChatRoomException(ErrorStatus.NO_ACTIVE_USER_FOUND));
+    }
+
+    private ChatRoom getChatRoom(ChatMessageRequest chatMessageDto) {
+        log.info("chatMessageDto : {}", chatMessageDto.getChatRoomId());
+        return chatRoomRepository.findById(chatMessageDto.getChatRoomId())
+                .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
     }
 
 }

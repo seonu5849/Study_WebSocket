@@ -51,5 +51,4 @@ public class Chat {
         this.createDate = createDate;
         this.messageType = messageType;
     }
-
 }

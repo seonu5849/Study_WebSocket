@@ -1,7 +1,7 @@
 package com.example.websocket.chatting.repository;
 
 import com.example.websocket.chatting.domain.QChat;
-import com.example.websocket.chatting.dto.response.ChatMessageDto;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 import com.example.websocket.user.domain.QUser;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,11 +20,11 @@ public class ChatQueryRepositoryImpl implements ChatQueryRepository {
     }
 
     @Override
-    public List<ChatMessageDto> findChatRoomWithMessage(Long chatRoomId) {
+    public List<ChatMessageResponse> findChatRoomWithMessage(Long chatRoomId) {
         QChat chat = QChat.chat;
         QUser user = QUser.user;
 
-        return query.select(Projections.constructor(ChatMessageDto.class,
+        return query.select(Projections.constructor(ChatMessageResponse.class,
                         user.id,
                         user.nickname,
                         user.profileImg,

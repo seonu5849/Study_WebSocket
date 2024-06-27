@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,31 +31,45 @@ public class ChatRoomCreateService {
     public Long createChatRoom(Long userId, ChatRoomCreateDto chatRoomCreateDto) {
         log.debug("createChatRoom({}, {}) invoked.", userId, chatRoomCreateDto);
 
-        // 본인도 채팅방이 생성될 때 가입이 되어야 하기 때문에 추가
         chatRoomCreateDto.enterToChatRoom(userId);
-        List<User> users = findById(chatRoomCreateDto);
-        ChatRoom chatRoomEntity = chatRoomCreateDto.toChatRoomEntity();
-        log.info("chatRoomEntity: {}", chatRoomEntity);
-        ChatRoom savedChatRoom = chatRoomRepository.save(chatRoomEntity);
-        log.info("savedChatRoom: {}", savedChatRoom);
+        ChatRoom chatRoomEntity = createChatRoomEntity(chatRoomCreateDto);
+        log.info("chatRoomCreateDto : {}", chatRoomCreateDto);
+        ChatRoom savedChatRoom = saveChatRoom(chatRoomEntity);
+        inviteUsersToChatRoom(savedChatRoom, chatRoomCreateDto.getUserIds());
 
-        users.forEach(user -> {
-            InviteChatId inviteChatId = new InviteChatId(user.getId(), savedChatRoom.getId());
-            InviteChat inviteChat = InviteChat.builder()
-                    .inviteChatId(inviteChatId)
-                    .user(user)
-                    .chatroom(savedChatRoom)
-                    .build();
-            inviteRepository.save(inviteChat);
-        });
         return savedChatRoom.getId();
     }
 
-    // 유저가 존재하는지 체크하는 로직
-    private List<User> findById(ChatRoomCreateDto chatRoomCreateDto) {
-        return chatRoomCreateDto.getUserIds().stream()
+    private ChatRoom createChatRoomEntity(ChatRoomCreateDto chatRoomCreateDto) {
+        return chatRoomRepository.save(chatRoomCreateDto.toChatRoomEntity());
+    }
+
+    private ChatRoom saveChatRoom(ChatRoom chatRoomEntity) {
+        log.info("chatRoomEntity: {}", chatRoomEntity);
+        return chatRoomRepository.save(chatRoomEntity);
+    }
+
+    private void inviteUsersToChatRoom(ChatRoom chatRoom, List<Long> userIds) {
+        List<User> users = findUsersByIds(userIds);
+        users.forEach(user -> {
+            InviteChat inviteChat = createInviteChat(chatRoom, user);
+            inviteRepository.save(inviteChat);
+        });
+    }
+
+    private List<User> findUsersByIds(List<Long> userIds) {
+        return userIds.stream()
                 .map(id -> userRepository.findById(id)
                         .orElseThrow(() -> new UserException(ErrorStatus.USER_NOT_FOUND)))
-                .toList();
+                .collect(Collectors.toList());
+    }
+
+    private InviteChat createInviteChat(ChatRoom chatRoom, User user) {
+        InviteChatId inviteChatId = new InviteChatId(user.getId(), chatRoom.getId());
+        return InviteChat.builder()
+                .inviteChatId(inviteChatId)
+                .user(user)
+                .chatroom(chatRoom)
+                .build();
     }
 }

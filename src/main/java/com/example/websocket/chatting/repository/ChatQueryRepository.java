@@ -1,12 +1,11 @@
 package com.example.websocket.chatting.repository;
 
-import com.example.websocket.chatting.dto.response.ChatMessageDto;
-import com.example.websocket.chatting.dto.response.ChatRoomDto;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 
 import java.util.List;
 
 public interface ChatQueryRepository {
 
-    List<ChatMessageDto> findChatRoomWithMessage(Long chatRoomId);
+    List<ChatMessageResponse> findChatRoomWithMessage(Long chatRoomId);
 
 }

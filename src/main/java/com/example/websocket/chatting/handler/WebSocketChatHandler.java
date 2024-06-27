@@ -4,7 +4,7 @@ import com.example.websocket.chatroom.domain.ChatRoom;
 import com.example.websocket.chatroom.exception.ChatRoomException;
 import com.example.websocket.chatroom.exception.ErrorStatus;
 import com.example.websocket.chatroom.repository.ChatRoomRepository;
-import com.example.websocket.chatting.dto.request.ChatMessageDto;
+import com.example.websocket.chatting.dto.request.ChatMessageRequest;
 import com.example.websocket.chatting.service.ChatSaveService;
 import com.example.websocket.config.security.domain.PrincipalDetail;
 import com.example.websocket.config.utils.TimeFormatUtils;
@@ -94,7 +94,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         log.info("payload : {}", payload);
 
         // payload -> chatMessageDto로 변환
-        ChatMessageDto chatMessageDto = mapper.readValue(payload, ChatMessageDto.class);
+        ChatMessageRequest chatMessageDto = mapper.readValue(payload, ChatMessageRequest.class);
         chatMessageDto.setSendTime(TimeFormatUtils.koreaTimeFormat(chatMessageDto.getSendTime()));
         // 유저 아이디 추출
 //        Long userId = extractUserId(session);
@@ -142,7 +142,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         chatRoomSession.removeIf(sess -> !sessions.contains(sess));
     }
 
-    private void sendMessageToChatRoom(ChatMessageDto chatMessageDto, Set<WebSocketSession> chatRoomSession) {
+    private void sendMessageToChatRoom(ChatMessageRequest chatMessageDto, Set<WebSocketSession> chatRoomSession) {
         chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatMessageDto));
     }
 
