@@ -43,14 +43,8 @@ public class ChatRoomListService {
         List<ChatRoomListDto> chatRoomListDtoList = new ArrayList<>();
         List<Object[]> results = chatRoomRepository.findByUserIdWithChatRoom(userId);
         for(Object[] result : results) {
-            ChatRoomListDto dto = ChatRoomListDto.builder()
-                    .chatRoomId(((Number) result[0]).longValue())
-                    .title(((String) result[1]))
-                    .profileImg(((String) result[2]))
-                    .personCount(((Number) result[3]).longValue())
-                    .lastCommentDate(((String) result[4]))
-                    .lastComment(((String) result[5]))
-                    .build();
+            ChatRoomListDto dto = objectToDto(result);
+            log.info("dto: {}", dto);
             chatRoomListDtoList.add(dto);
         }
 
@@ -63,19 +57,30 @@ public class ChatRoomListService {
         return chatRoomListDtoList;
     }
 
-    private List<ChatRoomListDto> filterChatRoomList(List<ChatRoomListDto> results) {
-        return results.stream()
-                // chatRoomId로 그룹화
-                .collect(Collectors.toMap(ChatRoomListDto::getChatRoomId,
-                        Function.identity(),
-                        // chatRoomId가 같을 경우 큰 LastCommentDate를 출력
-                        BinaryOperator.maxBy(Comparator.comparing(ChatRoomListDto::getLastCommentDate, Comparator.nullsLast(Comparator.naturalOrder())))
-                ))
-                // 맵의 값들만 추출하여 리스트로 변환
-                .values().stream()
-                // null 값을 마지막에 두면서 나머지는 내림차순으로 정렬
-                .sorted(Comparator.comparing(ChatRoomListDto::getLastCommentDate, Comparator.nullsLast(Comparator.reverseOrder())))
-                .toList();
+    private static ChatRoomListDto objectToDto(Object[] result) {
+        return ChatRoomListDto.builder()
+                .chatRoomId(((Number) result[0]).longValue())
+                .title(((String) result[1]))
+                .profileImg(((String) result[2]))
+                .personCount(((Number) result[3]).longValue())
+                .lastCommentDate(((String) result[4]))
+                .lastComment(((String) result[5]))
+                .build();
     }
+
+//    private List<ChatRoomListDto> filterChatRoomList(List<ChatRoomListDto> results) {
+//        return results.stream()
+//                // chatRoomId로 그룹화
+//                .collect(Collectors.toMap(ChatRoomListDto::getChatRoomId,
+//                        Function.identity(),
+//                        // chatRoomId가 같을 경우 큰 LastCommentDate를 출력
+//                        BinaryOperator.maxBy(Comparator.comparing(ChatRoomListDto::getLastCommentDate, Comparator.nullsLast(Comparator.naturalOrder())))
+//                ))
+//                // 맵의 값들만 추출하여 리스트로 변환
+//                .values().stream()
+//                // null 값을 마지막에 두면서 나머지는 내림차순으로 정렬
+//                .sorted(Comparator.comparing(ChatRoomListDto::getLastCommentDate, Comparator.nullsLast(Comparator.reverseOrder())))
+//                .toList();
+//    }
 
 }
