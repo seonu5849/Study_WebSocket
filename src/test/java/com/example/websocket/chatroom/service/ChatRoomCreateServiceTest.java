@@ -56,7 +56,7 @@ class ChatRoomCreateServiceTest {
         given(userRepository.findById(user2.getId()))
                 .willReturn(Optional.of(user2));
 
-        // Mock 객체에서 ChatRoomRepository.save 메서드의 동작 정의
+        // mock으로 생성한 jpa 엔티티의 id값 부여하는 로직
         doAnswer(invocation -> {
             ChatRoom chatRoom = invocation.getArgument(0);
             ReflectionTestUtils.setField(chatRoom, "id", 1L);

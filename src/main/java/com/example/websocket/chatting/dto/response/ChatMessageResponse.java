@@ -6,6 +6,8 @@ import com.example.websocket.config.utils.TimeFormatUtils;
 import com.example.websocket.user.domain.User;
 import lombok.*;
 
+import java.util.List;
+
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -50,6 +52,16 @@ public class ChatMessageResponse {
                 .sendTime(chat.getCreateDate())
                 .messageType(chat.getMessageType())
                 .build();
+    }
+
+    public static List<ChatMessageResponse> of(List<Chat> chats) {
+        return chats.stream()
+                .map(chat -> ChatMessageResponse.builder()
+                            .comment(chat.getComment())
+                            .sendTime(chat.getCreateDate())
+                            .messageType(chat.getMessageType())
+                            .build()
+                ).toList();
     }
 
     public void updateMessageOwner(Long userId) {

@@ -10,6 +10,7 @@ import com.example.websocket.chatroom.repository.InviteRepository;
 import com.example.websocket.chatting.domain.Chat;
 import com.example.websocket.chatting.domain.ChatId;
 import com.example.websocket.chatting.domain.MessageType;
+import com.example.websocket.chatting.dto.response.ChatMessageResponse;
 import com.example.websocket.chatting.repository.ChatRepository;
 import com.example.websocket.config.utils.TimeFormatUtils;
 import com.example.websocket.user.domain.User;
@@ -37,29 +38,33 @@ public class ChatRoomInviteMemberService {
     private final ChatRepository chatRepository;
 
     @Transactional
-    public void inviteMemberForChatRoom(Long chatRoomId, List<Long> userIds) {
+    public List<ChatMessageResponse> inviteMemberForChatRoom(Long chatRoomId, List<Long> userIds) {
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorStatus.NOT_FOUND_CHATROOM));
 
         List<User> users = getUsers(userIds);
-        saveEnterMessage(saveInviteMember(users, chatRoom), chatRoom);
+        return saveEnterMessage(saveInviteMember(users, chatRoom), chatRoom);
     }
 
-    private void saveEnterMessage(List<InviteChat> inviteChats, ChatRoom chatRoom) {
+    private List<ChatMessageResponse> saveEnterMessage(List<InviteChat> inviteChats, ChatRoom chatRoom) {
+        List<ChatMessageResponse> result = null;
         if(!inviteChats.isEmpty()) {
-            inviteChats.forEach(inviteChat -> {
+            List<Chat> list = inviteChats.stream()
+                    .map(inviteChat -> {
                         Long maxChatId = chatRepository.findMaxChatIdByChatRoomId(chatRoom.getId());
                         Chat chat = Chat.builder()
                                 .id(new ChatId(maxChatId + 1, chatRoom.getId()))
                                 .chatroom(chatRoom)
                                 .user(null)
-                                .comment(inviteChat.getUser().getNickname()+"님이 들어왔습니다.")
+                                .comment(inviteChat.getUser().getNickname() + "님이 들어왔습니다.")
                                 .createDate(TimeFormatUtils.koreaTimeFormat(DateToUtcTimeString(new Date())))
                                 .messageType(MessageType.ENTER)
                                 .build();
-                        chatRepository.save(chat);
-                    });
+                        return chatRepository.save(chat);
+                    }).toList();
+            result =  ChatMessageResponse.of(list);
         }
+        return result;
     }
 
     private List<InviteChat> saveInviteMember(List<User> users, ChatRoom chatRoom) {
