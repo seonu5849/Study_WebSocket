@@ -10,6 +10,7 @@ import com.example.websocket.user.domain.QUser;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
@@ -22,46 +23,31 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Repository
 public class ChatRoomQueryRepositoryImpl implements ChatRoomQueryRepository {
 
     private final static int PAGE_SIZE = 10;
-    private final QChatRoom chatRoom;
     private final QInviteChat inviteChat;
     private final QInviteChat inviteChat2;
+    private final QChatRoom chatRoom;
+    private final QUser user;
     private final QChat chat;
     private final JPAQueryFactory query;
 
     public ChatRoomQueryRepositoryImpl(EntityManager em) {
         this.query = new JPAQueryFactory(em);
-        this.chatRoom = QChatRoom.chatRoom;
         this.inviteChat = QInviteChat.inviteChat;
         this.inviteChat2 = QInviteChat.inviteChat;
+        this.chatRoom = QChatRoom.chatRoom;
+        this.user = QUser.user;
         this.chat = QChat.chat;
-    }
-
-    @Override
-    public List<ChatRoomListDto> findChatRoomsByUserId(Long userId) {
-        // 채팅방 : 방이름, 방아이디, 방사진, 명수,    채팅 : 마지막 채팅, 마지막 채팅 날짜
-        return query.select(Projections.constructor(ChatRoomListDto.class,
-                        chatRoom.id,
-                        chatRoom.title,
-                        chatRoom.profileImg,
-                        calculatePersonCount(chatRoom.id),
-                        chat.createDate.max(),
-                        chat.comment))
-                .from(chatRoom)
-                .join(inviteChat).on(chatRoom.id.eq(inviteChat.inviteChatId.chatRoomId))
-                .leftJoin(chat).on(chatRoom.id.eq(chat.chatroom.id))
-                .where(inviteChat.inviteChatId.userId.eq(userId))
-                .groupBy(chatRoom.id, chat.comment)
-                .orderBy(chat.createDate.max().desc())
-                .fetch();
     }
 
     // 채팅방에 없는 멤버를 조회
@@ -95,6 +81,45 @@ public class ChatRoomQueryRepositoryImpl implements ChatRoomQueryRepository {
         Boolean hasNext = hasNextList(userInfos, pageable);
 
         return new SliceImpl<>(userInfos, pageable, hasNext);
+    }
+
+    @Override
+    public List<ChatRoomListDto> findChatRoomParticipate(Long userId, String title) {
+        QChat chat2 = new QChat("chat2");
+        List<ChatRoomListDto> results = query.select(Projections.constructor(ChatRoomListDto.class,
+                        chatRoom.id,
+                        chatRoom.title,
+                        chatRoom.profileImg,
+                        subQueryForPersonCount(), //personCount
+                        subQueryForLastCommnetDate(), // lastCommentDate
+                        subQueryForLastComment(chat2) // lastComment
+                ))
+                .from(chatRoom)
+                .join(inviteChat).on(chatRoom.id.eq(inviteChat.inviteChatId.chatRoomId))
+                .join(user).on(inviteChat.inviteChatId.userId.eq(user.id))
+                .where(user.id.eq(userId),
+                        titleLike(title))
+                .groupBy(chatRoom.id)
+                .fetch();
+
+
+        return results;
+    }
+
+    private BooleanExpression titleLike(String title) {
+        return StringUtils.hasText(title) ? chatRoom.title.like("%" + title + "%") : null;
+    }
+
+    private JPQLQuery<String> subQueryForLastComment(QChat chat2) {
+        return JPAExpressions.select(chat.comment).from(chat).where(chat.chatroom.id.eq(chatRoom.id).and(chat.createDate.eq(JPAExpressions.select(chat2.createDate.max()).from(chat2).where(chat2.chatroom.id.eq(chatRoom.id)))));
+    }
+
+    private JPQLQuery<String> subQueryForLastCommnetDate() {
+        return JPAExpressions.select(chat.createDate.max()).from(chat).where(chat.chatroom.id.eq(chatRoom.id));
+    }
+
+    private JPQLQuery<Long> subQueryForPersonCount() {
+        return JPAExpressions.select(inviteChat2.count()).from(inviteChat2).where(inviteChat2.inviteChatId.chatRoomId.eq(chatRoom.id));
     }
 
     private static JPQLQuery<Long> getFriendForChatRoom(Long chatRoomId, QInviteChat inviteChat) {

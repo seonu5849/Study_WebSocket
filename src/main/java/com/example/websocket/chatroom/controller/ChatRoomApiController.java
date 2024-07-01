@@ -1,8 +1,10 @@
 package com.example.websocket.chatroom.controller;
 
 import com.example.websocket.chatroom.dto.request.ChatRoomCreateDto;
+import com.example.websocket.chatroom.dto.response.ChatRoomListDto;
 import com.example.websocket.chatroom.service.ChatRoomCreateService;
 import com.example.websocket.chatroom.service.ChatRoomInviteMemberService;
+import com.example.websocket.chatroom.service.ChatRoomSearchService;
 import com.example.websocket.config.security.domain.PrincipalDetail;
 import com.example.websocket.friend.dto.response.FriendDto;
 import com.example.websocket.chatroom.service.FindFriendForChatService;
@@ -24,6 +26,7 @@ public class ChatRoomApiController {
     private final ChatRoomCreateService chatRoomCreateService;
     private final FindFriendForChatService findFriendForChatService;
     private final ChatRoomInviteMemberService chatRoomInviteMemberService;
+    private final ChatRoomSearchService chatRoomSearchService;
 
     @PostMapping("/create")
     public ResponseEntity<Long> createChatRoom(@AuthenticationPrincipal PrincipalDetail principalDetail,
@@ -35,7 +38,7 @@ public class ChatRoomApiController {
     }
 
     @Operation(summary = "채팅방 내에서 친구 검색 API")
-    @GetMapping("{chatRoomId}/friends")
+    @GetMapping("/{chatRoomId}/friends")
     public ResponseEntity<FriendDto> findFriendsForChat(@PathVariable("chatRoomId") Long chatRoomId,
                                                         String nickname,
                                                         @RequestParam(defaultValue = "0") Integer cursorId) {
@@ -51,6 +54,15 @@ public class ChatRoomApiController {
         log.debug("inviteMember({}, {}) invoked.", chatRoomId, userIds);
         chatRoomInviteMemberService.inviteMemberForChatRoom(chatRoomId, userIds);
         return ResponseEntity.ok(chatRoomId);
+    }
+
+    @Operation(summary = "소속된 채팅방 조회")
+    @GetMapping("/search")
+    public ResponseEntity<List<ChatRoomListDto>> searchChatRoom(@AuthenticationPrincipal PrincipalDetail principalDetail,
+                                                          String title) {
+        log.debug("searchChatRoom({}, {}) invoked.", principalDetail.getUser(), title);
+        List<ChatRoomListDto> search = chatRoomSearchService.search(principalDetail.getUser(), title);
+        return ResponseEntity.ok(search);
     }
 
 }
