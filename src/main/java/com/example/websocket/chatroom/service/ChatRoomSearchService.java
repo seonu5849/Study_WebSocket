@@ -19,12 +19,18 @@ public class ChatRoomSearchService {
 
     public List<ChatRoomListDto> search(User user, String title) {
 
-        List<ChatRoomListDto> chatRoomListList = chatRoomQueryRepository.findChatRoomParticipate(user.getId(), title).stream()
+        List<ChatRoomListDto> chatRoomListDtos = chatRoomQueryRepository.findChatRoomParticipate(user.getId(), title).stream()
                 .sorted(Comparator.comparing(ChatRoomListDto::getLastCommentDate).reversed())
                 .toList();
-        log.info("chatRoomListList: {}", chatRoomListList);
 
-        return chatRoomListList;
+        for(ChatRoomListDto chatRoom : chatRoomListDtos) {
+            if(chatRoom.getLastCommentDate() != null) {
+                chatRoom.formatLastCommentDate(chatRoom.getLastCommentDate());
+            }
+        }
+        log.info("chatRoomListDtos: {}", chatRoomListDtos);
+
+        return chatRoomListDtos;
     }
 
 }

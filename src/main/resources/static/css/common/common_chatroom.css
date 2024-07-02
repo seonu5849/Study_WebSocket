@@ -13,7 +13,7 @@
     padding: 10px
 }
 .profile .user-container:hover,
-.chatroom .chatroom-container:hover {
+.chatroom .wrapper:hover {
     background-color: rgb(255, 227, 194, 0.5);
 }
 .profile .user-info,
@@ -89,4 +89,25 @@
     height: 30px;
     border-radius: 50%;
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 채팅방 검색창 */
+.search-bar {
+    position: fixed;
+    top: 60px;
+    left: 68px;
+    width: 300px;
+    background-color: rgb(238, 201, 156);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    display: none;
+}
+
+.search-bar input {
+    padding: 5px;
+    margin-right: 10px;
+    width: 250px;
 }

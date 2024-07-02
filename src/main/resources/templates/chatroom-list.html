@@ -13,9 +13,8 @@
     <section>
         <div th:replace="~{/fragments/side_bar :: common_sidebar}"></div>
         <div class="main">
-            <form class="menu-box" action="" method="get">
+            <div class="menu-box">
                 <span>채팅목록</span>
-                <!-- <input class="search-txt" type="text" placeholder="닉네임을 입력하세요."> -->
                 <div class="btn-box">
                     <button type="button" class="search-btn" id="searchRoomBtn">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -24,21 +23,26 @@
                         <i class="fa-solid fa-comment-medical"></i>
                     </button>
                 </div>
-            </form>
+            </div>
+            <div class="search-bar" id="searchBar">
+                <input type="text" placeholder="채팅방 이름을 입력해주세요."/>
+            </div>
             <div class="chatroom">
-                <div th:each="chatroom : ${chatrooms}" class="chatroom-container">
-                    <div class="chat">
-                        <img th:src="|/api/v1/friends/profile/${chatroom.profileImg}|" alt="" class="chat-profile">
-                        <div class="chat-info">
-                            <div class="chat-top">
-                                <div>
-                                    <input type="hidden" name="chatroomId" id="chatRoomId" th:value="${chatroom.chatRoomId}">
-                                    <span class="title" th:text="${chatroom.title}">방이름</span>
-                                    <span class="person-count" th:text="${chatroom.personCount}">0</span>
+                <div class="chatroom-container" >
+                    <div th:each="chatroom : ${chatrooms}" class="wrapper">
+                        <div class="chat">
+                            <img th:src="|/api/v1/friends/profile/${chatroom.profileImg}|" alt="" class="chat-profile">
+                            <div class="chat-info">
+                                <div class="chat-top">
+                                    <div>
+                                        <input type="hidden" name="chatroomId" id="chatRoomId" th:value="${chatroom.chatRoomId}">
+                                        <span class="title" th:text="${chatroom.title}">방이름</span>
+                                        <span class="person-count" th:text="${chatroom.personCount}">0</span>
+                                    </div>
+                                    <span class="date" th:text="${chatroom.lastCommentDate}">날짜</span>
                                 </div>
-                                <span class="date" th:text="${chatroom.lastCommentDate}">날짜</span>
+                                <span class="comment" th:text="${chatroom.lastComment}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                             </div>
-                            <span class="comment" th:text="${chatroom.lastComment}">마지막내용입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아</span>
                         </div>
                     </div>
                 </div>
@@ -48,10 +52,10 @@
     <div>
         <div th:replace="~{/modal/chatroom-add-room-modal :: chatroom-add-modal}"></div>
     </div>
-<!--    <script type="text/javascript" th:src="@{/js/test.js}"></script>-->
     <script type="text/javascript" th:src="@{/js/modal/modal.js}"></script>
     <script type="text/javascript" th:src="@{/js/modal/modalChatRoom.js}"></script>
     <script type="text/javascript" th:src="@{/js/fragment/sideBar.js}"></script>
     <script type="text/javascript" th:src="@{/js/chatroom/chatroom.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chatroom/chatroomSearch.js}"></script>
 </body>
 </html>
